@@ -1,9 +1,10 @@
 package com.exercism.adapter;
 
+import static java.lang.String.join;
+
 import java.util.List;
 
 import org.gradle.api.tasks.testing.TestResult;
-import org.gradle.api.tasks.testing.TestResult.ResultType;
 
 import com.exercism.data.TestDetails;
 import com.exercism.util.Util;
@@ -20,7 +21,7 @@ public class TestDetailsAdapter {
 				.name(testName) //
 				.message(message + details) //
 				.status(result.getResultType().toString()) //
-				.output(outputs) //
+				.output(join(",", outputs)) //
 				.build();
 
 	}

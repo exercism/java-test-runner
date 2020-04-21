@@ -12,4 +12,4 @@ InputDirectory="$2"
 OutputDirectory="$3"
 
 docker build -t exercism/java-test-runner .
-docker run --network none -v ${InputDirectory}:/solution/ -v ${OutputDirectory}:/results/ exercism/java-test-runner $Exercise /solution /results
+docker run --network none -v ${InputDirectory}/${Exercise}:/opt/test-runner/lib/solution/ -v ${OutputDirectory}:/results/ exercism/java-test-runner $Exercise /solution /results
