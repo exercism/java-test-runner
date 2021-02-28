@@ -12,7 +12,12 @@ input_folder="$2"
 output_folder="$3"
 compiler_error_log="compiler.log"
 
+cp -r $input_folder /opt/test-runner/lib/$problem_slug
 cd /opt/test-runner/lib
+
+cat <<EOF >settings.gradle
+include '${problem_slug}'
+EOF
 
 gradle --offline addListeners compileJava compileTestJava 2> /tmp/$compiler_error_log
 
