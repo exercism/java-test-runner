@@ -11,7 +11,7 @@ FAILURE_MESSAGE=$(Get_Failure_Message $1)
 ERRORS=$(Get_Errors $1)
 
 JSON_STRING=$( jq -n \
-                  --arg status "fail" \
+                  --arg status "error" \
                   --arg message "$FAILURE_MESSAGE $ERRORS" \
                   '{status: $status, message: $message}' )
 
