@@ -20,7 +20,7 @@ public class ReportAdapter {
 
 	private static String getStatus(List<TestDetails> tests) {
 		boolean failedTests = tests.stream() //
-				.filter(t -> t.getStatus() != "SUCCESS") //
+				.filter(t -> t.getStatus() == "fail") //
 				.collect(Collectors.toList())//
 				.size() > 0;
 		return failedTests ? FAIL_STATUS : PASS_STATUS;

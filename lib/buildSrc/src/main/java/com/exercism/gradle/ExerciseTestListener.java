@@ -11,10 +11,7 @@ import org.gradle.api.tasks.testing.TestDescriptor;
 import org.gradle.api.tasks.testing.TestListener;
 import org.gradle.api.tasks.testing.TestResult;
 
-import com.exercism.adapter.ReportAdapter;
 import com.exercism.data.TestDetails;
-import com.exercism.report.ReportGenerator;
-import com.exercism.util.Util;
 
 
 public class ExerciseTestListener implements TestListener {
@@ -29,12 +26,7 @@ public class ExerciseTestListener implements TestListener {
 	}
 	
 	public void afterTest(TestDescriptor test, TestResult result) {
-		if (result.getResultType().toString() == "FAILURE") {
-			TestDetails testDetails = toTestDetails(test.getName(), result, getOutputs(inbox));
-			taskDetails.add(testDetails);
-		} else {
-			taskDetails.add(toTestDetails(test.getName(), result, getOutputs(inbox)));
-		}
+		taskDetails.add(toTestDetails(test.getName(), result, getOutputs(inbox)));
 	}
 
 	public void beforeSuite(TestDescriptor suite) {
