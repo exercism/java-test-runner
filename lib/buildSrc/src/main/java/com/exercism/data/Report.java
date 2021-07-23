@@ -15,5 +15,6 @@ public class Report {
 	private String status;
 	private String message;
 	private List<TestDetails> tests;
+	private final int version = 2;
 
 }
