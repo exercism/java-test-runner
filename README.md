@@ -25,4 +25,4 @@ To run a solution's tests using a Docker container, follow these steps:
    1. Once the script has completed, the test results will be written to `<output-directory>/results.json`.
 
 
-[test-runner-interface]: https://github.com/exercism/automated-tests/blob/master/docs/interface.md
+[test-runner-interface]: https://github.com/exercism/docs/blob/main/building/tooling/test-runners/interface.md
