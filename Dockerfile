@@ -1,6 +1,6 @@
 FROM pindar/jq as jq
 
-FROM gradle:6.3.0-jdk8 
+FROM gradle:7.2.0-jdk16 
 
 COPY --from=jq /usr/local/bin/jq /usr/local/bin/jq
 RUN chmod +x /usr/local/bin/jq
