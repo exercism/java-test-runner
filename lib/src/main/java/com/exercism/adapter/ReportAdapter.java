@@ -12,24 +12,21 @@ public class ReportAdapter {
 	public static String FAIL_STATUS = "fail";
 
 	public static Report toReport(List<TestDetails> tests) {
-		return Report.builder()//
-				.status(getStatus(tests))//
-				.tests(tests)//
-				.build();
+		return Report.builder()
+			.setStatus(getStatus(tests))//
+			.tests(tests)//
+			.build();
 	}
 
 	private static String getStatus(List<TestDetails> tests) {
-		boolean failedTests = tests.stream() //
-				.filter(t -> t.getStatus() == "fail") //
-				.collect(Collectors.toList())//
-				.size() > 0;
+		boolean failedTests = tests.stream().anyMatch(t -> t.getStatus() == "fail");
 		return failedTests ? FAIL_STATUS : PASS_STATUS;
 	}
 
 	public static Report toReport(String task, List<String> stackTrace) {
-		return Report.builder()//
-				.status(ERROR_STATUS)//
-				.message("Task: "+ task + ": " + stackTrace.toString())//
-				.build();
+		return Report.builder()
+			.setStatus(ERROR_STATUS)
+			.setMessage("Task: "+ task + ": " + stackTrace.toString())
+			.build();
 	}
 }

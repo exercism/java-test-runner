@@ -1,22 +1,25 @@
-FROM pindar/jq as jq
+# === Build builder image ===
 
-FROM gradle:6.8.3-jdk11 
+FROM gradle:6.8.3-jdk11 AS build
 
-COPY --from=jq /usr/local/bin/jq /usr/local/bin/jq
-RUN chmod +x /usr/local/bin/jq
+WORKDIR /home/builder
 
-COPY lib/build.gradle /opt/test-runner/lib/build.gradle
+# Prepare required project files
+COPY src ./src
+COPY build.gradle ./
 
-COPY lib/buildSrc/build.gradle /opt/test-runner/lib/buildSrc/build.gradle
-COPY lib/buildSrc/src /opt/test-runner/lib/buildSrc/src
+# Build test runner
+RUN gradle --no-daemon -i shadowJar \
+    && cp build/libs/autotest-runner.jar .
 
-WORKDIR /opt/test-runner
-RUN cd /opt/test-runner/lib/buildSrc; \
-    gradle clean build; \
-    mkdir /opt/test-runner/gradle; \
-    cp -r ~/.gradle/ /opt/test-runner/gradle/.gradle/; \
-    unlink /root/.gradle; \
-    ln -s /opt/test-runner/gradle/.gradle /root/.gradle
+# === Build runtime image ===
 
-COPY bin/ /opt/test-runner/bin/
+FROM gradle:6.8.3-jdk11
+ARG WORKDIR="/opt/test-runner"
+
+# Copy binary and launcher script
+COPY bin/ ${WORKDIR}/bin/
+COPY --from=build /home/builder/autotest-runner.jar ${WORKDIR}
+
+WORKDIR ${WORKDIR}
 ENTRYPOINT ["sh", "/opt/test-runner/bin/run.sh"]

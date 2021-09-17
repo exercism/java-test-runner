@@ -26,12 +26,12 @@ public class TestDetailsAdapter {
 		String details = result.getResultType().toString() == "FAILURE" ?
 						 result.getException() + Util.formatStacktrace(result.getException().getStackTrace()).toString() : "";
 				 
-		return TestDetails.builder() //
-				.name(testName) //
-				.message(message + details) //
-				.status(getStatus(result.getResultType().toString())) //
-				.output(join(",", outputs)) //
-				.build();
+		return TestDetails.builder()
+			.setName(testName)
+			.setMessage(message + details)
+			.setStatus(getStatus(result.getResultType().toString()))
+			.setOutput(join(",", outputs))
+			.build();
 
 	}
 }

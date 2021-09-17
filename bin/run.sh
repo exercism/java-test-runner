@@ -3,7 +3,7 @@
 if [ $# -lt 3 ]
 then
     echo "Usage:"
-    echo "./bin/run.sh two_fer ~/input/ ~/output/"
+    echo "./bin/run.sh two-fer ~/input/ ~/output/"
     exit 1
 fi
 
@@ -20,7 +20,7 @@ cat <<EOF >settings.gradle
 include '${problem_slug}'
 EOF
 
-gradle --offline addListeners compileJava compileTestJava 2> /tmp/$compiler_error_log
+gradle --offline compileJava compileTestJava 2> /tmp/$compiler_error_log
 
 cd /opt/test-runner/bin
 
@@ -31,6 +31,5 @@ then
 else
     echo "Running tests"
     cd /opt/test-runner/lib
-    gradle --offline addListeners test
-    mv results.json $output_folder
+    java -jar /opt/test-runner/autotest-runner.jar $problem_slug $input_folder $output_folder
 fi
