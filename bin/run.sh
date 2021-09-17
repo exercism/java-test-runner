@@ -31,5 +31,5 @@ then
 else
     echo "Running tests"
     cd /opt/test-runner/lib
-    java -jar /opt/test-runner/autotest-runner.jar $problem_slug $input_folder $output_folder
+    java -jar /opt/test-runner/autotest-runner.jar $problem_slug $output_folder
 fi
