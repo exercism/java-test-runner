@@ -10,7 +10,6 @@ fi
 problem_slug="$1"
 input_folder="$2"
 output_folder="$3"
-compiler_error_log="compiler.log"
 
 cp -r $input_folder /opt/test-runner/lib/$problem_slug
 cd /opt/test-runner/lib
@@ -20,16 +19,5 @@ cat <<EOF >settings.gradle
 include '${problem_slug}'
 EOF
 
-gradle --offline compileJava compileTestJava 2> /tmp/$compiler_error_log
-
-cd /opt/test-runner/bin
-
-if [ -s "/tmp/$compiler_error_log" ]
-then 
-    echo "Compiler error, processing"
-    ./build_compilation_error_results.sh /tmp/$compiler_error_log > $output_folder/results.json
-else
-    echo "Running tests"
-    cd /opt/test-runner/lib
-    java -jar /opt/test-runner/autotest-runner.jar $problem_slug $output_folder
-fi
+echo "Running tests"
+java -jar /opt/test-runner/autotest-runner.jar $problem_slug $output_folder

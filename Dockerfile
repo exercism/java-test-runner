@@ -5,7 +5,7 @@ FROM gradle:6.8.3-jdk11 AS build
 WORKDIR /home/builder
 
 # Prepare required project files
-COPY src ./src
+COPY lib/src ./src
 COPY build.gradle ./
 
 # Build test runner and copy cached dependencies
