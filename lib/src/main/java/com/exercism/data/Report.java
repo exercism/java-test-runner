@@ -26,7 +26,7 @@ public abstract class Report {
 	}
 
 	@AutoValue.Builder
-	public abstract class Builder {
+	public abstract static class Builder {
 		@JsonProperty("status")
 		public abstract Builder setStatus(String status);
 

@@ -1,59 +1,82 @@
-package org.openmbee.junit.model;
+package com.exercism.xml;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.google.auto.value.AutoValue;
+import com.google.common.collect.ImmutableList;
 import java.util.List;
 
-@XmlRootElement(name = "testsuite")
-public class TestSuite {
-    @XmlAttribute
-    private boolean disabled;
-    @XmlAttribute
-    private int errors;
-    @XmlAttribute
-    private int failures;
-    @XmlAttribute
-    private String hostname;
-    @XmlAttribute
-    private String id;
-    @XmlAttribute(required = true)
-    private String name;
-    @XmlAttribute(name = "package")
-    private String pakkage;
-    @XmlAttribute
-    private int skipped;
-    @XmlAttribute(required = true)
-    private int tests;
-    @XmlAttribute
-    private double time;
-    @XmlAttribute
-    private String timestamp;
+import javax.annotation.Nullable;
 
-    @XmlElement(name = "property")
-    @XmlElementWrapper(name = "properties")
-    private List<JUnitProperty> properties;
-    @XmlElement(name = "testcase")
-    private List<JUnitTestCase> testCases;
+@AutoValue
+@JsonDeserialize(builder = AutoValue_TestSuite.Builder.class)
+@JacksonXmlRootElement(localName = "testsuite")
+public abstract class TestSuite {
+    @JacksonXmlProperty(isAttribute = true, localName = "errors")
+    public abstract Integer errors();
 
-    @XmlElement(name = "system-out")
-    private String systemOut;
-    @XmlElement(name = "system-err")
-    private String systemErr;
+    @JacksonXmlProperty(isAttribute = true, localName = "failures")
+    public abstract int failures();
 
-    public String getPackage() {
-        return pakkage;
+    @JacksonXmlProperty(isAttribute = true, localName = "name")
+    public abstract String name();
+
+    @JacksonXmlProperty(localName = "package")
+    public abstract String pakkage();
+
+    @JacksonXmlProperty(isAttribute = true, localName = "skipped")
+    public abstract int skipped();
+
+    @JacksonXmlProperty(isAttribute = true, localName = "tests")
+    public abstract int tests();
+
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(localName = "testcase")
+    public abstract ImmutableList<TestCase> testCases();
+
+    @JacksonXmlProperty(localName = "system-out")
+    public abstract String systemOut();
+
+    @JacksonXmlProperty(localName = "system-err")
+    public abstract String systemErr();
+
+    public static Builder builder() {
+        return new AutoValue_TestSuite.Builder();
     }
 
-    public void setPackage(String pakkage) {
-        this.pakkage = pakkage;
-    }
+    @AutoValue.Builder
+    public abstract static class Builder {
+        @JacksonXmlProperty(isAttribute = true, localName = "errors")
+        public abstract Builder setErrors(int errors);
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toStringExclude(this, "systemOut", "systemErr").replace("pakkage", "package");
+        @JacksonXmlProperty(isAttribute = true, localName = "failures")
+        public abstract Builder setFailures(int failures);
+
+        @JacksonXmlProperty(isAttribute = true, localName = "name")
+        public abstract Builder setName(String name);
+
+        @JacksonXmlProperty(localName = "package")
+        public abstract Builder setPakkage(String pakkage);
+
+        @JacksonXmlProperty(isAttribute = true, localName = "skipped")
+        public abstract Builder setSkipped(int skipped);
+
+        @JacksonXmlProperty(isAttribute = true, localName = "tests")
+        public abstract Builder setTests(int tests);
+
+        @JacksonXmlProperty(localName = "testcase")
+        public abstract Builder setTestCases(List<TestCase> testCases);
+
+        @JacksonXmlProperty(localName = "system-out")
+        public abstract Builder setSystemOut(String systemOut);
+
+        @JacksonXmlProperty(localName = "system-err")
+        public abstract Builder setSystemErr(String systemErr);
+
+        public abstract TestSuite build();
     }
 }
