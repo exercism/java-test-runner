@@ -9,17 +9,10 @@ import java.io.IOException;
 
 public final class TestRunner {
     public static void main(String[] args) throws InterruptedException, IOException {
-        Report report = new JUnitXmlParser()
-            .parse("/workspace/java-test-runner/temp/build/test-results/test/TEST-jason.JasonTest.xml")
-            .buildReport();
-        ReportGenerator.report(report);
-        if (args.length < 2) {
-            throw new IllegalArgumentException("not enough args");
-        }
         run(
             Arguments.builder()
-                .setSlug(args[0])
-                .setOutputDirectory(args[1])
+                .setSlug("")//args[0])
+                .setOutputDirectory("")//args[1])
                 .build());
     }
 

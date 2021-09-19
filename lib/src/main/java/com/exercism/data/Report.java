@@ -6,6 +6,8 @@ import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 @AutoValue
 @JsonDeserialize(builder = AutoValue_Report.Builder.class)
 public abstract class Report {
@@ -31,6 +33,7 @@ public abstract class Report {
 		public abstract Builder setStatus(String status);
 
 		@JsonProperty("message")
+		@Nullable
 		public abstract Builder setMessage(String message);
 
 		@JsonProperty("tests")

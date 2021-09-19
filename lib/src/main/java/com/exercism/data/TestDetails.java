@@ -1,5 +1,7 @@
 package com.exercism.data;
 
+import javax.annotation.Nullable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
@@ -14,9 +16,11 @@ public abstract class TestDetails {
 	public abstract String status();
 
 	@JsonProperty("message")
+	@Nullable
 	public abstract String message();
 
 	@JsonProperty("output")
+	@Nullable
 	public abstract String output();
 
 	public static Builder builder() {

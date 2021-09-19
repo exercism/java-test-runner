@@ -6,8 +6,6 @@ import com.google.auto.value.AutoValue;
 public abstract class Arguments {
     public abstract String slug();
 
-    public abstract String inputDirectory();
-
     public abstract String outputDirectory();
 
     public static Builder builder() {
@@ -17,8 +15,6 @@ public abstract class Arguments {
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Builder setSlug(String slug);
-
-        public abstract Builder setInputDirectory(String inputDirectory);
 
         public abstract Builder setOutputDirectory(String outputDirectory);
 
