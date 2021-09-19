@@ -1,5 +1,6 @@
 package com.exercism.xml;
 
+import com.google.common.io.Files;
 import com.exercism.data.Report;
 import com.exercism.data.TestDetails;
 import com.exercism.xml.data.TestCase;
@@ -7,11 +8,8 @@ import com.exercism.xml.data.TestSuite;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 
 public final class JUnitXmlParser {
@@ -20,7 +18,7 @@ public final class JUnitXmlParser {
     public JUnitXmlParser parse(String path) {
         String xml;
         try {
-            xml = inputStreamToString(new FileInputStream(Paths.get(path).toFile()));
+            xml = Files.asCharSource(Paths.get(path).toFile(), StandardCharsets.UTF_8).read();
         } catch (IOException e) {
             throw new IllegalStateException("Count not read file " + path);
         }
@@ -51,17 +49,6 @@ public final class JUnitXmlParser {
             report.addTest(testDetails.build());
         }
         return this;
-    }
-    
-    private static String inputStreamToString(InputStream is) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        String line;
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        while ((line = br.readLine()) != null) {
-            sb.append(line + "\n");
-        }
-        br.close();
-        return sb.toString();
     }
 
     public Report buildReport() {

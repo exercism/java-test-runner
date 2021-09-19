@@ -15,6 +15,7 @@ public abstract class Report {
 	public abstract String status();
 
 	@JsonProperty("message")
+	@Nullable
 	public abstract String message();
 
 	@JsonProperty("tests")
@@ -33,7 +34,6 @@ public abstract class Report {
 		public abstract Builder setStatus(String status);
 
 		@JsonProperty("message")
-		@Nullable
 		public abstract Builder setMessage(String message);
 
 		@JsonProperty("tests")
