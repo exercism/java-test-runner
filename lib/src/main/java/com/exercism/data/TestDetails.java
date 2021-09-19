@@ -12,6 +12,9 @@ public abstract class TestDetails {
 	@JsonProperty("name")
 	public abstract String name();
 
+	@JsonProperty("test_code")
+	public abstract String testCode();
+
 	@JsonProperty("status")
 	public abstract String status();
 
@@ -31,6 +34,9 @@ public abstract class TestDetails {
 	public abstract static class Builder {
 		@JsonProperty("name")
 		public abstract Builder setName(String name);
+
+		@JsonProperty("test_code")
+		public abstract Builder setTestCode(String testCode);
 
 		@JsonProperty("status")
 		public abstract Builder setStatus(String status);

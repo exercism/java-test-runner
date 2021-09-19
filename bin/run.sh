@@ -20,4 +20,5 @@ include '${problem_slug}'
 EOF
 
 echo "Running tests"
-java -jar /opt/test-runner/autotest-runner.jar $problem_slug $output_folder
+java -jar /opt/test-runner/autotest-runner.jar $problem_slug
+mv results.json $output_folder
