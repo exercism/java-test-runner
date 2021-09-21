@@ -34,12 +34,10 @@ public final class JUnitTestParser {
     }
 
     private void parse(File file, CompilationUnit compilationUnit) {
-        PackageDeclaration packageDeclaration =
+        String methodPrefix =
             compilationUnit.getPackageDeclaration()
-                .orElseThrow(
-                    () -> new IllegalStateException(
-                        "Test files must have a package declaration: " + file.getAbsolutePath()));
-        String packageName = packageDeclaration.getNameAsString();
+                .map(PackageDeclaration::getNameAsString)
+                .orElse("");
 
         String className = "";
         for (ClassOrInterfaceDeclaration classDeclaration
@@ -47,13 +45,17 @@ public final class JUnitTestParser {
             className = classDeclaration.getNameAsString();
             break;
         }
+        if (methodPrefix.isEmpty()) {
+            methodPrefix = className;
+        } else {
+            methodPrefix = methodPrefix + "." + className;
+        }
 
         for (MethodDeclaration methodDeclaration : compilationUnit.findAll(MethodDeclaration.class)) {
             if (!methodDeclaration.isAnnotationPresent​(Test.class)) {
                 continue;
             }
-            String fullMethodName = String.format(
-                "%s.%s.%s", packageName, className, methodDeclaration.getNameAsString());
+            String fullMethodName = methodPrefix + "." + methodDeclaration.getNameAsString();
             testCodeByTestName.put(fullMethodName, methodDeclaration.toString());
         }
     }
