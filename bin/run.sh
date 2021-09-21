@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Print out the commands to make this easier to debug
+set -x
+
 if [ $# -lt 3 ]
 then
     echo "Usage:"
@@ -11,14 +14,13 @@ problem_slug="$1"
 input_folder="$2"
 output_folder="$3"
 
-cp -r $input_folder /opt/test-runner/lib/$problem_slug
-cd /opt/test-runner/lib
+cp -r $input_folder /opt/test-runner/$problem_slug
+cd /opt/test-runner
 
 find . -mindepth 1 -type f | grep 'Test.java' | xargs -I file sed -i "s/@Ignore(.*)//g;s/@Ignore//g;" file
 cat <<EOF >settings.gradle
 include '${problem_slug}'
 EOF
 
-echo "Running tests"
 java -jar /opt/test-runner/autotest-runner.jar $problem_slug
 mv results.json $output_folder

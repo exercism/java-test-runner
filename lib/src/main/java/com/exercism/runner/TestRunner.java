@@ -49,14 +49,16 @@ public final class TestRunner {
         }
 
         JUnitTestParser testParser = new JUnitTestParser();
-        for (Path filePath : MoreFiles.listFiles(Paths.get(slug, "src", "test", "java"))) {
+        for (Path filePath :
+            MoreFiles.listFiles(Paths.get("/opt", "test-runner", slug, "src", "test", "java"))) {
             if (MoreFiles.getFileExtension(filePath).equals("java")) {
                 testParser.parse(filePath.toFile());
             }
         }
         ImmutableMap<String, String> testCodeByTestName = testParser.buildTestCodeMap();
         JUnitXmlParser xmlParser = new JUnitXmlParser(testCodeByTestName);
-        for (Path filePath : MoreFiles.listFiles(Paths.get(slug, "build", "test-results", "test"))) {
+        for (Path filePath :
+            MoreFiles.listFiles(Paths.get("/opt", "test-runner", slug, "build", "test-results", "test"))) {
             if (MoreFiles.getFileExtension(filePath).equals("xml")) {
                 xmlParser.parse(filePath.toFile());
             }
