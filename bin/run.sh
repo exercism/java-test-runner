@@ -14,13 +14,15 @@ problem_slug="$1"
 input_folder="$2"
 output_folder="$3"
 
-cp -r $input_folder /opt/test-runner/$problem_slug
-cd /opt/test-runner
+rm -rf $output_folder/*
+mkdir -p $output_folder/$problem_slug
+cp -r $input_folder/* $output_folder/$problem_slug
+cd $output_folder/$problem_slug
 
 find . -mindepth 1 -type f | grep 'Test.java' | xargs -I file sed -i "s/@Ignore(.*)//g;s/@Ignore//g;" file
-cat <<EOF >settings.gradle
-include '${problem_slug}'
-EOF
 
+export GRADLE_USER_HOME=/opt/test-runner/gradle/.gradle
 java -jar /opt/test-runner/autotest-runner.jar $problem_slug
+cat gradle-test.err
+cat results.json
 mv results.json $output_folder

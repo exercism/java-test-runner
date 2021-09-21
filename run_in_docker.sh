@@ -3,7 +3,7 @@
 if [ $# -lt 3 ]
 then
     echo "Usage:"
-    echo "./run_in_docker.sh two_fer ~/input/ ~/output/"
+    echo "./run_in_docker.sh two-fer ~/input/ ~/output/"
     exit 1
 fi
 

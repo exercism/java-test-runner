@@ -2,6 +2,8 @@ plugins {
   id 'com.github.johnrengelman.shadow' version '6.1.0'
   id 'java'
   id 'application'
+  id 'eclipse'
+  id 'idea'
 }
 
 mainClassName = 'com.exercism.runner.TestRunner'
