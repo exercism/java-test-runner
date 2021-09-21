@@ -6,7 +6,7 @@ WORKDIR /home/builder
 
 # Prepare required project files
 COPY lib/src ./src
-COPY build.gradle ./
+COPY lib/build.gradle ./
 
 # Build test runner and copy cached dependencies
 RUN gradle --no-daemon -i shadowJar \
@@ -19,11 +19,9 @@ RUN gradle --no-daemon -i shadowJar \
 # === Build runtime image ===
 
 FROM gradle:6.8.3-jdk11
-ARG WORKDIR="/opt/test-runner"
+WORKDIR /opt/test-runner
 
 # Copy binary and launcher script
-COPY bin/ ${WORKDIR}/bin/
-COPY --from=build /home/builder/autotest-runner.jar ${WORKDIR}
-
-WORKDIR ${WORKDIR}
+COPY bin/ bin/
+COPY --from=build /home/builder/autotest-runner.jar .
 ENTRYPOINT ["sh", "/opt/test-runner/bin/run.sh"]
