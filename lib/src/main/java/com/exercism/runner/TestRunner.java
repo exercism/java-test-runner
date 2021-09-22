@@ -31,8 +31,8 @@ public final class TestRunner {
             "--warning-mode=none")
             .redirectError(new File(GRADLE_TEST_ERR))
             .start();
-        if (!gradleTest.waitFor(10, SECONDS)) {
-            throw new IllegalStateException("gradle test did not complete within 10 seconds");
+        if (!gradleTest.waitFor(20, SECONDS)) {
+            throw new IllegalStateException("gradle test did not complete within 20 seconds");
         }
         if (gradleTest.exitValue() != 0) {
             String gradleErrorOutput = Files.asCharSource(
