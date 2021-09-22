@@ -23,7 +23,6 @@ COPY bin/ ./bin/
 COPY --from=build /home/builder/autotest-runner.jar ./
 
 # Copy cached dependencies
-COPY --from=build /root/.gradle /root/.gradle
 COPY --from=build /home/gradle /home/gradle
 
 ENTRYPOINT ["sh", "/opt/test-runner/bin/run.sh"]
