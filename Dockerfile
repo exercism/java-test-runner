@@ -13,6 +13,11 @@ RUN gradle -i clean build
 RUN gradle -i shadowJar \
     && cp build/libs/autotest-runner.jar .
 
+# Ensure exercise dependencies are downloaded
+WORKDIR /opt/exercise
+COPY exercise .
+RUN gradle build
+
 # === Build runtime image ===
 
 FROM gradle:6.8.3-jdk11
