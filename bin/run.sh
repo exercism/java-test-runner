@@ -22,14 +22,10 @@ mkdir -p $tmp_folder
 
 cd $tmp_folder
 cp -R $input_folder/* .
-ls -al
 
 find . -mindepth 1 -type f | grep 'Test.java' | xargs -I file sed -i "s/@Ignore(.*)//g;s/@Ignore//g;" file
 
-export GRADLE_USER_HOME=/opt/test-runner/gradle/.gradle
 java -jar /opt/test-runner/autotest-runner.jar $problem_slug
 cat gradle-test.err
 cat results.json
 mv results.json $output_folder
-
-cd -
