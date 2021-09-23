@@ -3,7 +3,7 @@
 if [ $# -lt 3 ]
 then
     echo "Usage:"
-    echo "./run_in_docker.sh two_fer ~/input/ ~/output/"
+    echo "./run_in_docker.sh two-fer ~/input/ ~/output/"
     exit 1
 fi
 
@@ -12,4 +12,10 @@ InputDirectory="$2"
 OutputDirectory="$3"
 
 docker build -t exercism/java-test-runner .
-docker run --network none -v ${InputDirectory}/${Exercise}:/solution -v ${OutputDirectory}:/results/ exercism/java-test-runner $Exercise /solution /results
+
+docker run \
+    --network none \
+    --mount type=bind,src="${InputDirectory}",dst=/solution \
+    --mount type=bind,src="${OutputDirectory}",dst=/results \
+    --mount type=tmpfs,dst=/tmp \
+    exercism/java-test-runner "${Exercise}" /solution /results
