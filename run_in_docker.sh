@@ -13,7 +13,7 @@ OutputDirectory="$3"
 
 docker build -t exercism/java-test-runner .
 
-docker run \
+time docker run \
     --network none \
     --mount type=bind,src="${InputDirectory}",dst=/solution \
     --mount type=bind,src="${OutputDirectory}",dst=/results \

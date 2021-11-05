@@ -22,5 +22,7 @@ cp -R $input_folder/* .
 
 find . -mindepth 1 -type f | grep 'Test.java' | xargs -I file sed -i "s/@Ignore(.*)//g;s/@Ignore//g;" file
 
-java -jar /opt/test-runner/autotest-runner.jar $problem_slug
+echo -e "test {\n  maxHeapSize = '2G'\n  reports.html.required = false\n}" >> build.gradle
+timeout 20 gradle test --offline --no-daemon --warning-mode=none --no-watch-fs --console=plain 2> gradle-test.err
+java -jar /opt/test-runner/autotest-runner.jar $?
 mv results.json $output_folder

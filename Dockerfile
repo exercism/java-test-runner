@@ -1,6 +1,6 @@
 # === Build builder image ===
 
-FROM gradle:6.8.3-jdk11 AS build
+FROM gradle:7.1-jdk11 AS build
 
 WORKDIR /home/builder
 
@@ -20,7 +20,7 @@ RUN gradle build
 
 # === Build runtime image ===
 
-FROM gradle:6.8.3-jdk11
+FROM gradle:7.1-jdk11
 WORKDIR /opt/test-runner
 
 # Copy binary and launcher script
@@ -29,5 +29,10 @@ COPY --from=build /home/builder/autotest-runner.jar ./
 
 # Copy cached dependencies
 COPY --from=build /home/gradle /home/gradle
+
+RUN pkill -f '.*GradleDaemon.*'
+RUN rm -rf ~/.gradle/daemon
+
+ENV GRADLE_OPTS="--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.invoke=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.prefs/java.util.prefs=ALL-UNNAMED --add-opens java.prefs/java.util.prefs=ALL-UNNAMED --add-opens java.base/java.nio.charset=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED --add-opens java.base/java.util.concurrent.atomic=ALL-UNNAMED -Xms256m -Xmx2048M -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant"
 
 ENTRYPOINT ["sh", "/opt/test-runner/bin/run.sh"]

@@ -22,19 +22,8 @@ public final class TestRunner {
         run(args[0]);
     }
 
-    private static void run(String slug) throws InterruptedException, IOException {
-        Process gradleTest = new ProcessBuilder(
-            "gradle",
-            "test",
-            "--offline",
-            "--no-daemon",
-            "--warning-mode=none")
-            .redirectError(new File(GRADLE_TEST_ERR))
-            .start();
-        if (!gradleTest.waitFor(20, SECONDS)) {
-            throw new IllegalStateException("gradle test did not complete within 20 seconds");
-        }
-        if (gradleTest.exitValue() != 0) {
+    private static void run(String returnCode) throws InterruptedException, IOException {
+        if (returnCode != "0") {
             String gradleErrorOutput = Files.asCharSource(
                 Paths.get(GRADLE_TEST_ERR).toFile(), StandardCharsets.UTF_8)
                 .read();
@@ -54,6 +43,7 @@ public final class TestRunner {
                 testParser.parse(filePath.toFile());
             }
         }
+
         ImmutableMap<String, String> testCodeByTestName = testParser.buildTestCodeMap();
         JUnitXmlParser xmlParser = new JUnitXmlParser(testCodeByTestName);
         for (Path filePath : MoreFiles.listFiles(Paths.get("build", "test-results", "test"))) {
@@ -61,6 +51,7 @@ public final class TestRunner {
                 xmlParser.parse(filePath.toFile());
             }
         }
+
         Report report = xmlParser.buildReport();
         ReportGenerator.report(report);
     }
