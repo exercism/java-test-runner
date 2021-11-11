@@ -4,5 +4,6 @@
 .settings
 **/bin/
 **/build/
+target
 
 results.json
