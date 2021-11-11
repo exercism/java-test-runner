@@ -41,7 +41,7 @@ public final class TestRunner {
             String mavenOutput = Files.asCharSource(
                 Paths.get(MAVEN_TEST_OUTPUT).toFile(), StandardCharsets.UTF_8)
                 .read();
-            if (mavenOutput.contains("ERROR")) {
+            if (mavenOutput.contains("COMPILATION ERROR")) {
                 ReportGenerator.report(
                     Report.builder()
                         .setStatus("error")

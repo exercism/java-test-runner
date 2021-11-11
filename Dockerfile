@@ -9,7 +9,6 @@ COPY lib/src ./src
 COPY lib/build.gradle ./
 
 # Build test runner
-RUN echo "no-cache"
 RUN gradle -i clean build
 RUN gradle -i shadowJar \
     && cp build/libs/autotest-runner.jar .
@@ -34,6 +33,6 @@ COPY --from=build /home/builder/autotest-runner.jar ./
 COPY --from=cache /root/.m2 /root/.m2
 
 # Copy Maven pom.xml
-COPY --from=cache /opt/exercise/pom.xml /home/pom.xml
+COPY --from=cache /opt/exercise/pom.xml /root/pom.xml
 
 ENTRYPOINT ["sh", "/opt/test-runner/bin/run.sh"]
