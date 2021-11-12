@@ -16,33 +16,36 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public final class TestRunner {
-    private static final String GRADLE_TEST_ERR = "gradle-test.err";
+    private static final String MAVEN_TEST_OUTPUT = "maven-test.out";
 
     public static void main(String[] args) throws InterruptedException, IOException {
         run(args[0]);
     }
 
     private static void run(String slug) throws InterruptedException, IOException {
-        Process gradleTest = new ProcessBuilder(
-            "gradle",
+        Process mavenTest = new ProcessBuilder(
+            "mvn",
             "test",
             "--offline",
-            "--no-daemon",
-            "--warning-mode=none")
-            .redirectError(new File(GRADLE_TEST_ERR))
+            "--legacy-local-repository",
+            "--batch-mode",
+            "--non-recursive",
+            "--quiet")
+            .redirectOutput(new File(MAVEN_TEST_OUTPUT))
             .start();
-        if (!gradleTest.waitFor(20, SECONDS)) {
-            throw new IllegalStateException("gradle test did not complete within 20 seconds");
+        if (!mavenTest.waitFor(20, SECONDS)) {
+            throw new IllegalStateException("test did not complete within 20 seconds");
         }
-        if (gradleTest.exitValue() != 0) {
-            String gradleErrorOutput = Files.asCharSource(
-                Paths.get(GRADLE_TEST_ERR).toFile(), StandardCharsets.UTF_8)
+
+        if (mavenTest.exitValue() != 0) {
+            String mavenOutput = Files.asCharSource(
+                Paths.get(MAVEN_TEST_OUTPUT).toFile(), StandardCharsets.UTF_8)
                 .read();
-            if (gradleErrorOutput.contains("compileJava")) {
+            if (mavenOutput.contains("COMPILATION ERROR")) {
                 ReportGenerator.report(
                     Report.builder()
                         .setStatus("error")
-                        .setMessage(gradleErrorOutput)
+                        .setMessage(mavenOutput)
                         .build());
                 return;
             }
@@ -56,7 +59,7 @@ public final class TestRunner {
         }
         ImmutableMap<String, String> testCodeByTestName = testParser.buildTestCodeMap();
         JUnitXmlParser xmlParser = new JUnitXmlParser(testCodeByTestName);
-        for (Path filePath : MoreFiles.listFiles(Paths.get("build", "test-results", "test"))) {
+        for (Path filePath : MoreFiles.listFiles(Paths.get("target", "surefire-reports"))) {
             if (MoreFiles.getFileExtension(filePath).equals("xml")) {
                 xmlParser.parse(filePath.toFile());
             }
