@@ -11,6 +11,7 @@ public class TestCase {
     @JacksonXmlProperty(isAttribute = true)
     public double time;
     public Failure failure;
+    public Error error;
 
     @Override
     public String toString() {
@@ -19,6 +20,7 @@ public class TestCase {
             .add("classname", classname)
             .add("time", time)
             .add("failure", failure)
+            .add("error", error)
             .toString(); 
     }
 }

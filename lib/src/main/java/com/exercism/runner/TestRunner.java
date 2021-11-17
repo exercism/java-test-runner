@@ -58,7 +58,7 @@ public final class TestRunner {
             }
         }
         ImmutableMap<String, String> testCodeByTestName = testParser.buildTestCodeMap();
-        JUnitXmlParser xmlParser = new JUnitXmlParser(testCodeByTestName);
+        JUnitXmlParser xmlParser = new JUnitXmlParser(mavenTest.exitValue(), testCodeByTestName);
         for (Path filePath : MoreFiles.listFiles(Paths.get("target", "surefire-reports"))) {
             if (MoreFiles.getFileExtension(filePath).equals("xml")) {
                 xmlParser.parse(filePath.toFile());

@@ -14,10 +14,12 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public final class JUnitXmlParser {
+    private int exitCode = 1;
     private final ImmutableMap<String, String> testCodeByTestName;
-    private final Report.Builder report = Report.builder().setStatus("pass");
+    private final Report.Builder report = Report.builder();
 
-    public JUnitXmlParser(ImmutableMap<String, String> testCodeByTestName) {
+    public JUnitXmlParser(int exitCode, ImmutableMap<String, String> testCodeByTestName) {
+        this.exitCode = exitCode;
         this.testCodeByTestName = testCodeByTestName;
     }
 
@@ -38,7 +40,10 @@ public final class JUnitXmlParser {
             throw new IllegalStateException(
                 "Could not process XML for path " + file.getAbsolutePath(), e);
         }
-        if (testSuite.failures > 0) {
+
+        if (this.exitCode == 0 && testSuite.failures == 0 && testSuite.errors == 0) {
+            report.setStatus("pass");
+        } else {
             report.setStatus("fail");
         }
         for (TestCase tc : testSuite.testcase) {
@@ -55,6 +60,13 @@ public final class JUnitXmlParser {
                     .setMessage(
                         "Message: " + tc.failure.message + "\n"
                         + "Exception: " + tc.failure.value);
+            }
+            if (tc.error != null) {
+                testDetails
+                    .setStatus("fail")
+                    .setMessage(
+                        "Message: " + tc.error.message + "\n"
+                        + "Exception: " + tc.error.value);
             }
             report.addTest(testDetails.build());
         }
