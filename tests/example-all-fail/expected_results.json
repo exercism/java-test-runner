@@ -1,0 +1,60 @@
+{
+  "status" : "fail",
+  "message" : null,
+  "tests" : [ {
+    "name" : "LeapTest.testYearDivBy100NotDivBy3IsNotLeapYear",
+    "test_code" : "@Test\npublic void testYearDivBy100NotDivBy3IsNotLeapYear() {\n    assertFalse(leap.isLeapYear(1900));\n}",
+    "status" : "fail",
+    "message" : "Message: null\nException: java.lang.AssertionError\n\tat LeapTest.testYearDivBy100NotDivBy3IsNotLeapYear(LeapTest.java:49)\n",
+    "output" : null
+  }, {
+    "name" : "LeapTest.testYearDivBy2NotDivBy4InCommonYear",
+    "test_code" : "@Test\npublic void testYearDivBy2NotDivBy4InCommonYear() {\n    assertFalse(leap.isLeapYear(1970));\n}",
+    "status" : "fail",
+    "message" : "Message: null\nException: java.lang.AssertionError\n\tat LeapTest.testYearDivBy2NotDivBy4InCommonYear(LeapTest.java:25)\n",
+    "output" : null
+  }, {
+    "name" : "LeapTest.testYearDivBy400InLeapYear",
+    "test_code" : "@Test\npublic void testYearDivBy400InLeapYear() {\n    assertTrue(leap.isLeapYear(2000));\n}",
+    "status" : "fail",
+    "message" : "Message: null\nException: java.lang.AssertionError\n\tat LeapTest.testYearDivBy400InLeapYear(LeapTest.java:55)\n",
+    "output" : null
+  }, {
+    "name" : "LeapTest.testYearNotDivBy4InCommonYear",
+    "test_code" : "@Test\npublic void testYearNotDivBy4InCommonYear() {\n    assertFalse(leap.isLeapYear(2015));\n}",
+    "status" : "fail",
+    "message" : "Message: null\nException: java.lang.AssertionError\n\tat LeapTest.testYearNotDivBy4InCommonYear(LeapTest.java:19)\n",
+    "output" : null
+  }, {
+    "name" : "LeapTest.testYearDivBy4NotDivBy100InLeapYear",
+    "test_code" : "@Test\npublic void testYearDivBy4NotDivBy100InLeapYear() {\n    assertTrue(leap.isLeapYear(1996));\n}",
+    "status" : "fail",
+    "message" : "Message: null\nException: java.lang.AssertionError\n\tat LeapTest.testYearDivBy4NotDivBy100InLeapYear(LeapTest.java:31)\n",
+    "output" : null
+  }, {
+    "name" : "LeapTest.testYearDivBy400NotDivBy125IsLeapYear",
+    "test_code" : "@Test\npublic void testYearDivBy400NotDivBy125IsLeapYear() {\n    assertTrue(leap.isLeapYear(2400));\n}",
+    "status" : "fail",
+    "message" : "Message: null\nException: java.lang.AssertionError\n\tat LeapTest.testYearDivBy400NotDivBy125IsLeapYear(LeapTest.java:61)\n",
+    "output" : null
+  }, {
+    "name" : "LeapTest.testYearDivBy100NotDivBy400InCommonYear",
+    "test_code" : "@Test\npublic void testYearDivBy100NotDivBy400InCommonYear() {\n    assertFalse(leap.isLeapYear(2100));\n}",
+    "status" : "fail",
+    "message" : "Message: null\nException: java.lang.AssertionError\n\tat LeapTest.testYearDivBy100NotDivBy400InCommonYear(LeapTest.java:43)\n",
+    "output" : null
+  }, {
+    "name" : "LeapTest.testYearDivBy200NotDivBy400InCommonYear",
+    "test_code" : "@Test\npublic void testYearDivBy200NotDivBy400InCommonYear() {\n    assertFalse(leap.isLeapYear(1800));\n}",
+    "status" : "fail",
+    "message" : "Message: null\nException: java.lang.AssertionError\n\tat LeapTest.testYearDivBy200NotDivBy400InCommonYear(LeapTest.java:67)\n",
+    "output" : null
+  }, {
+    "name" : "LeapTest.testYearDivBy4And5InLeapYear",
+    "test_code" : "@Test\npublic void testYearDivBy4And5InLeapYear() {\n    assertTrue(leap.isLeapYear(1960));\n}",
+    "status" : "fail",
+    "message" : "Message: null\nException: java.lang.AssertionError\n\tat LeapTest.testYearDivBy4And5InLeapYear(LeapTest.java:37)\n",
+    "output" : null
+  } ],
+  "version" : 2
+}

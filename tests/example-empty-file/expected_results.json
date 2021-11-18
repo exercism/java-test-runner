@@ -1,0 +1,6 @@
+{
+  "status" : "error",
+  "message" : "[ERROR] COMPILATION ERROR : \n[ERROR] /tmp/solution/src/test/java/LeapTest.java:[10,13] cannot find symbol\n  symbol:   class Leap\n  location: class LeapTest\n[ERROR] /tmp/solution/src/test/java/LeapTest.java:[14,20] cannot find symbol\n  symbol:   class Leap\n  location: class LeapTest\n[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.0:testCompile (default-testCompile) on project exercise: Compilation failure: Compilation failure: \n[ERROR] /tmp/solution/src/test/java/LeapTest.java:[10,13] cannot find symbol\n[ERROR]   symbol:   class Leap\n[ERROR]   location: class LeapTest\n[ERROR] /tmp/solution/src/test/java/LeapTest.java:[14,20] cannot find symbol\n[ERROR]   symbol:   class Leap\n[ERROR]   location: class LeapTest\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n",
+  "tests" : [ ],
+  "version" : 2
+}

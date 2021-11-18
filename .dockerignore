@@ -1,0 +1,2 @@
+tests/
+bin/run-tests-in-docker.sh
