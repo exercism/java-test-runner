@@ -1,5 +1,21 @@
 #!/usr/bin/env bash
 
+# Synopsis:
+# Run the test runner on a solution using the test runner Docker image.
+# The test runner Docker image is built automatically.
+
+# Arguments:
+# $1: exercise slug
+# $2: path to solution folder
+# $3: path to output directory
+
+# Output:
+# Writes the test results to a results.json file in the passed-in output directory.
+# The test results are formatted according to the specifications at https://github.com/exercism/docs/blob/main/building/tooling/test-runners/interface.md
+
+# Example:
+# ./bin/run-in-docker.sh two-fer path/to/solution/folder/ path/to/output/directory/
+
 if [ $# -lt 3 ]
 then
     echo "Usage:"

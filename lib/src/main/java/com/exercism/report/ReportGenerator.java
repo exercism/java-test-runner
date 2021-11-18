@@ -11,7 +11,7 @@ public class ReportGenerator {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		try {
-			mapper.writeValue(new File("results.json"), report);
+			mapper.writerWithDefaultPrettyPrinter().writeValue(new File("results.json"), report);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
