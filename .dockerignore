@@ -6,3 +6,4 @@ bin/run-tests-in-docker.sh
 .github
 .gitignore
 .gitattributes
+.dockerignore
