@@ -4,3 +4,4 @@ bin/run-tests-in-docker.sh
 .appends
 .git
 .github
+.gitignore
