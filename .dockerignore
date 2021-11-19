@@ -2,3 +2,4 @@ tests/
 bin/run-in-docker.sh
 bin/run-tests-in-docker.sh
 .appends
+.git
