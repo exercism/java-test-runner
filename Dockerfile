@@ -1,6 +1,6 @@
 # === Build builder image ===
 
-FROM gradle:6.8.3-jdk11 AS build
+FROM gradle:7.3-jdk17 AS build
 
 WORKDIR /home/builder
 
@@ -13,7 +13,7 @@ RUN gradle -i clean build
 RUN gradle -i shadowJar \
     && cp build/libs/autotest-runner.jar .
 
-FROM maven:3.8.3-jdk-11 AS cache
+FROM maven:3.8-eclipse-temurin-17 AS cache
 
 # Ensure exercise dependencies are downloaded
 WORKDIR /opt/exercise
@@ -22,7 +22,7 @@ RUN mvn test dependency:go-offline -DexcludeReactor=false
 
 # === Build runtime image ===
 
-FROM maven:3.8.3-jdk-11
+FROM maven:3.8-eclipse-temurin-17
 WORKDIR /opt/test-runner
 
 # Copy binary and launcher script
