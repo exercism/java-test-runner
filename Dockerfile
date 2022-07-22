@@ -22,7 +22,7 @@ RUN mvn test dependency:go-offline -DexcludeReactor=false
 
 # === Build runtime image ===
 
-FROM maven:3.8-eclipse-temurin-17
+FROM maven:3.8.6-eclipse-temurin-17-focal
 WORKDIR /opt/test-runner
 
 # Copy binary and launcher script
