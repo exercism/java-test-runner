@@ -18,13 +18,13 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.15.0</version>
+      <version>3.24.2</version>
       <scope>test</scope>
     </dependency>
     <dependency><!-- Used here: https://github.com/exercism/java/blob/acfdd2b654a1e2b8bb497c3af25a9e2eff1044e0/exercises/practice/rest-api/build.gradle#L14 -->
