@@ -84,27 +84,28 @@ public final class TestRunner {
     }
 
     private static Report buildReport(List<JUnitTestDetails> jUnitTestDetails, Map<String, String> testCodeMap) {
-        var builder = Report.builder();
+        var testDetails = jUnitTestDetails.stream().map(item -> buildTestDetails(item, testCodeMap)).toList();
+        var testStatus = testDetails.stream().allMatch(details -> details.status().equals("pass")) ? "pass" : "fail";
 
-        for (JUnitTestDetails testDetails : jUnitTestDetails) {
-            var testClassName = testDetails.identifier().getUniqueIdObject().removeLastSegment().getLastSegment().getValue();
-            var testName = String.format("%s.%s", testClassName, testDetails.identifier().getDisplayName());
+        return Report.builder()
+                .setTests(testDetails)
+                .setStatus(testStatus)
+                .build();
+    }
 
-            var detailBuilder = TestDetails.builder()
-                    .setStatus(testDetails.result().getStatus() == TestExecutionResult.Status.SUCCESSFUL ? "pass" : "fail")
-                    .setTestCode(testCodeMap.get(testName))
-                    .setName(testName)
-                    .setOutput(testDetails.output());
+    private static TestDetails buildTestDetails(JUnitTestDetails testDetails, Map<String, String> testCodeMap) {
+        var testClassName = testDetails.identifier().getUniqueIdObject().removeLastSegment().getLastSegment().getValue();
+        var testName = String.format("%s.%s", testClassName, testDetails.identifier().getDisplayName());
 
-            testDetails.result().getThrowable().ifPresent(t -> detailBuilder.setMessage(buildErrorMessage(t)));
+        var detailBuilder = TestDetails.builder()
+                .setStatus(testDetails.result().getStatus() == TestExecutionResult.Status.SUCCESSFUL ? "pass" : "fail")
+                .setTestCode(testCodeMap.get(testName))
+                .setName(testName)
+                .setOutput(testDetails.output());
 
-            var detail = detailBuilder.build();
+        testDetails.result().getThrowable().ifPresent(t -> detailBuilder.setMessage(buildErrorMessage(t)));
 
-            builder.addTest(detail);
-            builder.setStatus(detail.status());
-        }
-
-        return builder.build();
+        return detailBuilder.build();
     }
 
     private static String buildErrorMessage(Throwable throwable) {

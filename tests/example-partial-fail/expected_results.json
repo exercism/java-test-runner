@@ -1,5 +1,5 @@
 {
-  "status" : "pass",
+  "status" : "fail",
   "message" : null,
   "tests" : [ {
     "name" : "LeapTest.testYearDivBy100NotDivBy3IsNotLeapYear",
