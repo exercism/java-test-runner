@@ -8,6 +8,7 @@ import com.exercism.junit.JUnitTestDetails;
 import com.exercism.junit.JUnitTestParser;
 import com.exercism.junit.JUnitTestRunner;
 import com.exercism.report.ReportGenerator;
+import com.google.common.base.Throwables;
 import org.junit.platform.engine.TestExecutionResult;
 
 import java.io.File;
@@ -95,7 +96,7 @@ public final class TestRunner {
                     .setName(testName)
                     .setOutput(testDetails.output());
 
-            testDetails.result().getThrowable().ifPresent(t -> detailBuilder.setMessage(t.getMessage()));
+            testDetails.result().getThrowable().ifPresent(t -> detailBuilder.setMessage(buildErrorMessage(t)));
 
             var detail = detailBuilder.build();
 
@@ -104,5 +105,9 @@ public final class TestRunner {
         }
 
         return builder.build();
+    }
+
+    private static String buildErrorMessage(Throwable throwable) {
+        return String.format("Message: %s%nException: %s", throwable.getMessage(), Throwables.getStackTraceAsString(throwable));
     }
 }
