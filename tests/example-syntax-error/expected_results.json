@@ -1,6 +1,6 @@
 {
   "status" : "error",
-  "message" : "[ERROR] COMPILATION ERROR : \n[ERROR] /tmp/solution/src/main/java/Leap.java:[1,1] class, interface, enum, or record expected\n[ERROR] /tmp/solution/src/main/java/Leap.java:[1,17] reached end of file while parsing\n[ERROR] /tmp/solution/src/main/java/Leap.java:[2,1] reached end of file while parsing\n[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.0:compile (default-compile) on project exercise: Compilation failure: Compilation failure: \n[ERROR] /tmp/solution/src/main/java/Leap.java:[1,1] class, interface, enum, or record expected\n[ERROR] /tmp/solution/src/main/java/Leap.java:[1,17] reached end of file while parsing\n[ERROR] /tmp/solution/src/main/java/Leap.java:[2,1] reached end of file while parsing\n[ERROR] -> [Help 1]\n[ERROR] \n[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.\n[ERROR] Re-run Maven using the -X switch to enable full debug logging.\n[ERROR] \n[ERROR] For more information about the errors and possible solutions, please read the following articles:\n[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException\n",
+  "message" : "./src/main/java/Leap.java:1: error: class, interface, enum, or record expected\nclassYY Leapy {@\n^./src/main/java/Leap.java:1: error: reached end of file while parsing\nclassYY Leapy {@\n                ^./src/main/java/Leap.java:2: error: reached end of file while parsing\n",
   "tests" : [ ],
   "version" : 2
 }
