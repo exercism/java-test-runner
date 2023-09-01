@@ -38,7 +38,4 @@ cp -R $input_folder/* .
 
 find . -mindepth 1 -type f | grep 'Test.java' | xargs -I file sed -i "s/@Ignore(.*)//g;s/@Ignore//g;" file
 
-cp /root/pom.xml .
-
-java -jar /opt/test-runner/autotest-runner.jar $problem_slug
-mv results.json $output_folder
+java -jar /opt/test-runner/autotest-runner.jar $problem_slug . $output_folder

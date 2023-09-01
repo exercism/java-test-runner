@@ -1,0 +1,9 @@
+rootProject.name = "java-test-runner"
+
+include 'lib'
+include 'tests:example-all-fail'
+include 'tests:example-empty-file'
+include 'tests:example-partial-fail'
+include 'tests:example-success'
+include 'tests:example-success-java17'
+include 'tests:example-syntax-error'

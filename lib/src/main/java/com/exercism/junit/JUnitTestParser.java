@@ -1,23 +1,15 @@
 package com.exercism.junit;
 
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.PackageDeclaration;
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseProblemException;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.io.Files;
+import org.junit.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.junit.Test;
 
 public final class JUnitTestParser {
     private final ImmutableMap.Builder<String, String> testCodeByTestName =
@@ -52,7 +44,7 @@ public final class JUnitTestParser {
         }
 
         for (MethodDeclaration methodDeclaration : compilationUnit.findAll(MethodDeclaration.class)) {
-            if (!methodDeclaration.isAnnotationPresent​(Test.class)) {
+            if (!methodDeclaration.isAnnotationPresent(Test.class) && !methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
                 continue;
             }
             String fullMethodName = methodPrefix + "." + methodDeclaration.getNameAsString();
