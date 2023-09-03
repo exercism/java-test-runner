@@ -10,6 +10,7 @@ import com.exercism.junit.JUnitTestRunner;
 import com.exercism.report.ReportGenerator;
 import com.google.common.base.Throwables;
 import org.junit.platform.engine.TestExecutionResult;
+import org.junit.platform.engine.support.descriptor.MethodSource;
 
 import java.io.File;
 import java.io.IOException;
@@ -94,8 +95,9 @@ public final class TestRunner {
     }
 
     private static TestDetails buildTestDetails(JUnitTestDetails testDetails, Map<String, String> testCodeMap) {
-        var testClassName = testDetails.identifier().getUniqueIdObject().removeLastSegment().getLastSegment().getValue();
-        var testName = String.format("%s.%s", testClassName, testDetails.identifier().getDisplayName());
+        var testSource = (MethodSource) testDetails.identifier().getSource().get(); // TODO: proper error handling
+        var testClassName = testSource.getClassName();
+        var testName = String.format("%s.%s", testClassName, testSource.getMethodName());
 
         var detailBuilder = TestDetails.builder()
                 .setStatus(testDetails.result().getStatus() == TestExecutionResult.Status.SUCCESSFUL ? "pass" : "fail")
