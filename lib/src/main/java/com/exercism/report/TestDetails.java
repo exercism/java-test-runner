@@ -1,4 +1,4 @@
-package com.exercism.data;
+package com.exercism.report;
 
 import javax.annotation.Nullable;
 

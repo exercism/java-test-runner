@@ -1,4 +1,4 @@
-package com.exercism.data;
+package com.exercism.report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

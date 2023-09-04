@@ -1,5 +1,6 @@
 package com.exercism.junit;
 
+import com.exercism.TestSource;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.PackageDeclaration;
@@ -12,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 public final class JUnitTestParser {
-    private final ImmutableMap.Builder<String, String> testCodeByTestName =
+    private final ImmutableMap.Builder<TestSource, String> testCodeByTestName =
         ImmutableMap.builder();
     
     public JUnitTestParser parse(File file) {
@@ -26,33 +27,29 @@ public final class JUnitTestParser {
     }
 
     private void parse(File file, CompilationUnit compilationUnit) {
-        String methodPrefix =
+        var packageName =
             compilationUnit.getPackageDeclaration()
                 .map(PackageDeclaration::getNameAsString)
                 .orElse("");
 
-        String className = "";
+        var className = "";
         for (ClassOrInterfaceDeclaration classDeclaration
             : compilationUnit.findAll(ClassOrInterfaceDeclaration.class)) {
             className = classDeclaration.getNameAsString();
             break;
-        }
-        if (methodPrefix.isEmpty()) {
-            methodPrefix = className;
-        } else {
-            methodPrefix = methodPrefix + "." + className;
         }
 
         for (MethodDeclaration methodDeclaration : compilationUnit.findAll(MethodDeclaration.class)) {
             if (!methodDeclaration.isAnnotationPresent(Test.class) && !methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
                 continue;
             }
-            String fullMethodName = methodPrefix + "." + methodDeclaration.getNameAsString();
-            testCodeByTestName.put(fullMethodName, methodDeclaration.toString());
+            var methodName = methodDeclaration.getNameAsString();
+            var testSource = new TestSource(packageName, className, methodName);
+            testCodeByTestName.put(testSource, methodDeclaration.toString());
         }
     }
 
-    public ImmutableMap<String, String> buildTestCodeMap() {
+    public ImmutableMap<TestSource, String> buildTestCodeMap() {
         return testCodeByTestName.build();
     }
 }

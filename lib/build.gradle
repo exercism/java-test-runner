@@ -6,7 +6,7 @@ plugins {
 
 group = "org.exercism"
 version = "1.0-SNAPSHOT"
-mainClassName = 'com.exercism.runner.TestRunner'
+mainClassName = 'com.exercism.TestRunner'
 
 repositories {
     mavenCentral()

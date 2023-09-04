@@ -1,16 +1,12 @@
-package com.exercism.runner;
+package com.exercism;
 
 import com.exercism.compiler.ExerciseCompilationException;
 import com.exercism.compiler.ExerciseCompiler;
-import com.exercism.data.Report;
-import com.exercism.data.TestDetails;
-import com.exercism.junit.JUnitTestDetails;
+import com.exercism.report.Report;
 import com.exercism.junit.JUnitTestParser;
 import com.exercism.junit.JUnitTestRunner;
 import com.exercism.report.ReportGenerator;
-import com.google.common.base.Throwables;
-import org.junit.platform.engine.TestExecutionResult;
-import org.junit.platform.engine.support.descriptor.MethodSource;
+import com.exercism.report.ReportWriter;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 
 public final class TestRunner {
@@ -27,12 +22,12 @@ public final class TestRunner {
     private final ExerciseCompiler compiler;
     private final JUnitTestRunner testRunner;
     private final JUnitTestParser testParser;
-    private final ReportGenerator reportGenerator;
+    private final ReportWriter reportWriter;
     private final String inputDirectory;
 
     public TestRunner(String slug, String inputDirectory, String outputDirectory) {
         this.compiler = new ExerciseCompiler(slug);
-        this.reportGenerator = new ReportGenerator(Paths.get(outputDirectory));
+        this.reportWriter = new ReportWriter(Paths.get(outputDirectory));
         this.testParser = new JUnitTestParser();
         this.testRunner = new JUnitTestRunner();
         this.inputDirectory = inputDirectory;
@@ -57,7 +52,7 @@ public final class TestRunner {
         try {
             var compiledClasses = compiler.compile(Stream.concat(sourceFiles.stream(), testFiles.stream()).toList());
             testRunner.test(compiledClasses);
-            report = buildReport(testRunner.getTestDetails(), testParser.buildTestCodeMap());
+            report = ReportGenerator.generate(testRunner.getTestDetails(), testParser.buildTestCodeMap());
         } catch (ExerciseCompilationException e) {
             report = Report.builder()
                     .setStatus("error")
@@ -65,7 +60,7 @@ public final class TestRunner {
                     .build();
         }
 
-        reportGenerator.report(report);
+        reportWriter.report(report);
     }
 
     private static Collection<File> resolveSourceFiles(String inputDirectory) throws IOException {
@@ -82,35 +77,5 @@ public final class TestRunner {
         try (var files = Files.find(path, 2, (file, attrs) -> attrs.isRegularFile() && file.toString().endsWith(".java"))) {
             return files.map(Path::toFile).toList();
         }
-    }
-
-    private static Report buildReport(List<JUnitTestDetails> jUnitTestDetails, Map<String, String> testCodeMap) {
-        var testDetails = jUnitTestDetails.stream().map(item -> buildTestDetails(item, testCodeMap)).toList();
-        var testStatus = testDetails.stream().allMatch(details -> details.status().equals("pass")) ? "pass" : "fail";
-
-        return Report.builder()
-                .setTests(testDetails)
-                .setStatus(testStatus)
-                .build();
-    }
-
-    private static TestDetails buildTestDetails(JUnitTestDetails testDetails, Map<String, String> testCodeMap) {
-        var testSource = (MethodSource) testDetails.identifier().getSource().get(); // TODO: proper error handling
-        var testClassName = testSource.getClassName();
-        var testName = String.format("%s.%s", testClassName, testSource.getMethodName());
-
-        var detailBuilder = TestDetails.builder()
-                .setStatus(testDetails.result().getStatus() == TestExecutionResult.Status.SUCCESSFUL ? "pass" : "fail")
-                .setTestCode(testCodeMap.get(testName))
-                .setName(testName)
-                .setOutput(testDetails.output());
-
-        testDetails.result().getThrowable().ifPresent(t -> detailBuilder.setMessage(buildErrorMessage(t)));
-
-        return detailBuilder.build();
-    }
-
-    private static String buildErrorMessage(Throwable throwable) {
-        return String.format("Message: %s%nException: %s", throwable.getMessage(), Throwables.getStackTraceAsString(throwable));
     }
 }
