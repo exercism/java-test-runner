@@ -1,7 +1,6 @@
 package com.exercism.report;
 
 import com.exercism.TestDetails;
-import com.exercism.TestSource;
 import com.exercism.TestStatus;
 import com.google.common.base.Throwables;
 
@@ -9,7 +8,7 @@ import java.util.Collection;
 import java.util.Map;
 
 public class ReportGenerator {
-    public static Report generate(Collection<TestDetails> testDetails, Map<TestSource, String> testCodeMap) {
+    public static Report generate(Collection<TestDetails> testDetails, Map<String, String> testCodeMap) {
         var reportDetails = testDetails.stream().map(item -> buildTestDetails(item, testCodeMap)).toList();
         var reportStatus = collapseStatuses(testDetails.stream().map(details -> details.result().status()).toList());
         var reportVersion = testDetails.stream().anyMatch(details -> details.metadata().taskId().isPresent()) ? 3 : 2;
@@ -21,10 +20,10 @@ public class ReportGenerator {
                 .build();
     }
 
-    private static com.exercism.report.TestDetails buildTestDetails(TestDetails testDetails, Map<TestSource, String> testCodeMap) {
+    private static com.exercism.report.TestDetails buildTestDetails(TestDetails testDetails, Map<String, String> testCodeMap) {
         var detailBuilder = com.exercism.report.TestDetails.builder()
                 .setStatus(mapStatus(testDetails.result().status()))
-                .setTestCode(testCodeMap.get(testDetails.source()))
+                .setTestCode(testCodeMap.get(testDetails.source().identifier()))
                 .setName(testDetails.metadata().name())
                 .setOutput(testDetails.output());
 
