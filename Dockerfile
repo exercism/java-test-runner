@@ -1,6 +1,6 @@
 # === Build builder image ===
 
-FROM gradle:8.1-jdk17 AS build
+FROM gradle:8.2-jdk17 AS build
 
 WORKDIR /home/builder
 
