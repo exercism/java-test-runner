@@ -41,8 +41,8 @@ public final class TestRunner {
     }
 
     private void run() throws IOException {
-        var sourceFiles = resolveSourceFiles(inputDirectory);
-        var testFiles = resolveTestFiles(inputDirectory);
+        var sourceFiles = resolveSourceFiles();
+        var testFiles = resolveTestFiles();
 
         for (File testFile : testFiles) {
             testParser.parse(testFile);
@@ -65,12 +65,12 @@ public final class TestRunner {
         reportWriter.report(report);
     }
 
-    private static Collection<File> resolveSourceFiles(String inputDirectory) throws IOException {
+    private Collection<File> resolveSourceFiles() throws IOException {
         var sourcePath = Paths.get(inputDirectory, "src", "main", "java");
         return resolveJavaFiles(sourcePath);
     }
 
-    private static Collection<File> resolveTestFiles(String inputDirectory) throws IOException {
+    private Collection<File> resolveTestFiles() throws IOException {
         var testPath = Paths.get(inputDirectory, "src", "test", "java");
         return resolveJavaFiles(testPath);
     }
