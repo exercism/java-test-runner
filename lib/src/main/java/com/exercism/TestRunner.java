@@ -74,7 +74,7 @@ public final class TestRunner {
     }
 
     private static List<File> resolveJavaFiles(Path path) throws IOException {
-        try (var files = Files.find(path, 2, (file, attrs) -> attrs.isRegularFile() && file.toString().endsWith(".java"))) {
+        try (var files = Files.find(path, 10, (file, attrs) -> attrs.isRegularFile() && file.toString().endsWith(".java"))) {
             return files.map(Path::toFile).toList();
         }
     }

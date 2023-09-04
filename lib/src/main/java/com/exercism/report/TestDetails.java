@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
 
+import java.util.Optional;
+
 @AutoValue
 @JsonDeserialize(builder = AutoValue_Report.Builder.class)
 public abstract class TestDetails {
@@ -25,6 +27,9 @@ public abstract class TestDetails {
 	@JsonProperty("output")
 	@Nullable
 	public abstract String output();
+
+	@JsonProperty("task_id")
+	public abstract Optional<Integer> taskId();
 
 	public static Builder builder() {
 	  return new AutoValue_TestDetails.Builder();
@@ -46,6 +51,9 @@ public abstract class TestDetails {
 
 		@JsonProperty("output")
 		public abstract Builder setOutput(String output);
+
+		@JsonProperty("task_id")
+		public abstract Builder setTaskId(int taskId);
 
 		public abstract TestDetails build();
 	}

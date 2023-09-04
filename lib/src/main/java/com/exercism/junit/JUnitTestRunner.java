@@ -1,11 +1,9 @@
 package com.exercism.junit;
 
-import com.exercism.TestDetails;
-import com.exercism.TestResult;
-import com.exercism.TestSource;
-import com.exercism.TestStatus;
+import com.exercism.*;
 import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.engine.TestExecutionResult;
+import org.junit.platform.engine.TestTag;
 import org.junit.platform.engine.discovery.DiscoverySelectors;
 import org.junit.platform.engine.reporting.ReportEntry;
 import org.junit.platform.engine.support.descriptor.MethodSource;
@@ -18,6 +16,7 @@ import java.util.*;
 
 public class JUnitTestRunner implements TestExecutionListener {
 
+    public static final String TASK_ID_TAG_PREFIX = "task:";
     private final Map<String, String> outputPerTest;
     private final List<TestDetails> testDetails;
 
@@ -50,7 +49,8 @@ public class JUnitTestRunner implements TestExecutionListener {
         }
 
         var result = new TestResult(mapStatus(testExecutionResult.getStatus()), testExecutionResult.getThrowable());
-        var details = new TestDetails(getTestSource(testIdentifier), result, testIdentifier.getDisplayName(), output);
+        var metadata = new TestMetadata(testIdentifier.getDisplayName(), getTaskId(testIdentifier));
+        var details = new TestDetails(getTestSource(testIdentifier), metadata, result, output);
         testDetails.add(details);
     }
 
@@ -95,5 +95,20 @@ public class JUnitTestRunner implements TestExecutionListener {
                 methodSource.getClassName(),
                 methodSource.getMethodName()
         );
+    }
+
+    private static Optional<Integer> getTaskId(TestIdentifier identifier) {
+        for (TestTag tag : identifier.getTags()) {
+            if (!tag.getName().startsWith(TASK_ID_TAG_PREFIX)) {
+                continue;
+            }
+
+            var taskId = tag.getName().replaceFirst(TASK_ID_TAG_PREFIX, "");
+            try {
+                return Optional.of(Integer.parseInt(taskId));
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return Optional.empty();
     }
 }

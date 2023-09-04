@@ -1,6 +1,7 @@
 package com.exercism.report;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
 import java.nio.file.Path;
 
@@ -14,6 +15,7 @@ public class ReportWriter {
 
 	public void report(Report report) {
 		var mapper = new ObjectMapper();
+		mapper.registerModule(new Jdk8Module());
 		var filePath = this.outputDirectory.resolve("results.json");
 
 		try {
