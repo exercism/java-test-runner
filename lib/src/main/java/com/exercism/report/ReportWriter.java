@@ -1,5 +1,6 @@
 package com.exercism.report;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 
@@ -16,6 +17,7 @@ public class ReportWriter {
 	public void report(Report report) {
 		var mapper = new ObjectMapper();
 		mapper.registerModule(new Jdk8Module());
+		mapper.setSerializationInclusion(JsonInclude.Include.NON_ABSENT);
 		var filePath = this.outputDirectory.resolve("results.json");
 
 		try {
