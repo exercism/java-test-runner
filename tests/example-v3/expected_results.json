@@ -4,11 +4,13 @@
     "name" : "totalTimeInMinutes method calculates the correct value for multiple layers",
     "test_code" : "@Test\n@Tag(\"task:4\")\n@DisplayName(\"totalTimeInMinutes method calculates the correct value for multiple layers\")\npublic void total_time_in_minutes_for_multiple_layers() {\n    assertThat(new Lasagna().totalTimeInMinutes(4, 8)).isEqualTo(16);\n}",
     "status" : "pass",
+    "output" : "Preparation time: 8\n",
     "task_id" : 4
   }, {
     "name" : "totalTimeInMinutes method calculates the correct value for single layer",
     "test_code" : "@Test\n@Tag(\"task:4\")\n@DisplayName(\"totalTimeInMinutes method calculates the correct value for single layer\")\npublic void total_time_in_minutes_for_one_layer() {\n    assertThat(new Lasagna().totalTimeInMinutes(1, 30)).isEqualTo(32);\n}",
     "status" : "pass",
+    "output" : "Preparation time: 2\n",
     "task_id" : 4
   }, {
     "name" : "remainingMinutesInOven method calculates and returns the correct value",
