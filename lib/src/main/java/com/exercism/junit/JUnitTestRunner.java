@@ -1,7 +1,6 @@
 package com.exercism.junit;
 
 import com.exercism.*;
-import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestTag;
 import org.junit.platform.engine.discovery.DiscoverySelectors;
@@ -12,6 +11,7 @@ import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 
+import java.nio.file.Path;
 import java.util.*;
 
 public class JUnitTestRunner implements TestExecutionListener {
@@ -25,15 +25,17 @@ public class JUnitTestRunner implements TestExecutionListener {
         this.testDetails = new ArrayList<>();
     }
 
-    public void test(Collection<Class<?>> classes) {
-        var selectors = classes.stream().map(DiscoverySelectors::selectClass).toArray(DiscoverySelector[]::new);
+    public void test(ClassLoader classLoader, Set<Path> classpathRoots) {
+        var originalClassLoader = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(classLoader);
         var request = LauncherDiscoveryRequestBuilder.request()
-                .selectors(selectors)
+                .selectors(DiscoverySelectors.selectClasspathRoots(classpathRoots))
                 .configurationParameter("junit.platform.output.capture.stdout", "true")
                 .build();
         var launcher = LauncherFactory.create();
         var testPlan = launcher.discover(request);
         launcher.execute(testPlan, this);
+        Thread.currentThread().setContextClassLoader(originalClassLoader);
     }
 
     @Override

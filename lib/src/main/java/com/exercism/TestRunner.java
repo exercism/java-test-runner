@@ -2,6 +2,7 @@ package com.exercism;
 
 import com.exercism.compiler.ExerciseCompilationException;
 import com.exercism.compiler.ExerciseCompiler;
+import com.exercism.junit.JUnitTestParser;
 import com.exercism.junit.JUnitTestRunner;
 import com.exercism.report.Report;
 import com.exercism.report.ReportGenerator;
@@ -18,17 +19,17 @@ import java.util.stream.Stream;
 
 public final class TestRunner {
 
-    private final JavaSourceFileAnalyzer analyzer;
-    private final ExerciseCompiler compiler;
+    private final JUnitTestParser testParser;
     private final JUnitTestRunner testRunner;
     private final ReportWriter reportWriter;
+    private final String slug;
     private final String inputDirectory;
 
     public TestRunner(String slug, String inputDirectory, String outputDirectory) {
-        this.analyzer = new JavaSourceFileAnalyzer();
-        this.compiler = new ExerciseCompiler(slug);
+        this.testParser = new JUnitTestParser();
         this.reportWriter = new ReportWriter(Paths.get(outputDirectory));
         this.testRunner = new JUnitTestRunner();
+        this.slug = slug;
         this.inputDirectory = inputDirectory;
     }
 
@@ -41,16 +42,19 @@ public final class TestRunner {
 
     private void run() throws IOException {
         var sourceFiles = resolveSourceFiles(inputDirectory);
+        var testFiles = resolveTestFiles(inputDirectory);
 
-        for (File sourceFile : sourceFiles) {
-            analyzer.analyze(sourceFile);
+        for (File testFile : testFiles) {
+            testParser.parse(testFile);
         }
 
+        var filesToCompile = Stream.concat(sourceFiles.stream(), testFiles.stream()).toList();
+
         Report report;
-        try {
-            var compiledClasses = compiler.compile(sourceFiles, analyzer.getClasses());
-            testRunner.test(compiledClasses);
-            report = ReportGenerator.generate(testRunner.getTestDetails(), analyzer.getMethodDeclarations());
+        try (var compiler = new ExerciseCompiler(slug)) {
+            compiler.compile(filesToCompile);
+            testRunner.test(compiler.getClassLoader(), compiler.getClasspathRoots());
+            report = ReportGenerator.generate(testRunner.getTestDetails(), testParser.buildTestCodeMap());
         } catch (ExerciseCompilationException e) {
             report = Report.builder()
                     .setStatus("error")
@@ -63,8 +67,12 @@ public final class TestRunner {
 
     private static Collection<File> resolveSourceFiles(String inputDirectory) throws IOException {
         var sourcePath = Paths.get(inputDirectory, "src", "main", "java");
+        return resolveJavaFiles(sourcePath);
+    }
+
+    private static Collection<File> resolveTestFiles(String inputDirectory) throws IOException {
         var testPath = Paths.get(inputDirectory, "src", "test", "java");
-        return Stream.concat(resolveJavaFiles(sourcePath).stream(), resolveJavaFiles(testPath).stream()).toList();
+        return resolveJavaFiles(testPath);
     }
 
     private static List<File> resolveJavaFiles(Path path) throws IOException {
