@@ -13,34 +13,32 @@ import java.io.File;
 import java.io.IOException;
 
 public final class JUnitTestParser {
-    private final ImmutableMap.Builder<TestSource, String> testCodeByTestName =
-        ImmutableMap.builder();
-    
-    public JUnitTestParser parse(File file) {
+    private final ImmutableMap.Builder<TestSource, String> testCodeByTestName = ImmutableMap.builder();
+
+    public void parse(File file) {
         try {
-            new JavaParser().parse(file)
-                .ifSuccessful(compilationUnit -> parse(file, compilationUnit));
+            new JavaParser().parse(file).ifSuccessful(this::parse);
         } catch (IOException e) {
             throw new IllegalStateException("Could not read test file: " + file.getAbsolutePath(), e);
         }
-        return this;
     }
 
-    private void parse(File file, CompilationUnit compilationUnit) {
+    private void parse(CompilationUnit compilationUnit) {
         var packageName =
-            compilationUnit.getPackageDeclaration()
-                .map(PackageDeclaration::getNameAsString)
-                .orElse("");
+                compilationUnit.getPackageDeclaration()
+                        .map(PackageDeclaration::getNameAsString)
+                        .orElse("");
 
         var className = "";
         for (ClassOrInterfaceDeclaration classDeclaration
-            : compilationUnit.findAll(ClassOrInterfaceDeclaration.class)) {
+                : compilationUnit.findAll(ClassOrInterfaceDeclaration.class)) {
             className = classDeclaration.getNameAsString();
             break;
         }
 
         for (MethodDeclaration methodDeclaration : compilationUnit.findAll(MethodDeclaration.class)) {
-            if (!methodDeclaration.isAnnotationPresent(Test.class) && !methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
+            if (!methodDeclaration.isAnnotationPresent(Test.class) &&
+                    !methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
                 continue;
             }
             var methodName = methodDeclaration.getNameAsString();
