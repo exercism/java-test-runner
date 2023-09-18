@@ -1,66 +1,53 @@
 package com.exercism.junit;
 
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
+import com.exercism.TestSource;
+import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.PackageDeclaration;
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseProblemException;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.io.Files;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+
 public final class JUnitTestParser {
-    private final ImmutableMap.Builder<String, String> testCodeByTestName =
-        ImmutableMap.builder();
-    
-    public JUnitTestParser parse(File file) {
+    private final ImmutableMap.Builder<TestSource, String> testCodeByTestName = ImmutableMap.builder();
+
+    public void parse(File file) {
         try {
-            new JavaParser().parse(file)
-                .ifSuccessful(compilationUnit -> parse(file, compilationUnit));
+            new JavaParser().parse(file).ifSuccessful(this::parse);
         } catch (IOException e) {
             throw new IllegalStateException("Could not read test file: " + file.getAbsolutePath(), e);
         }
-        return this;
     }
 
-    private void parse(File file, CompilationUnit compilationUnit) {
-        String methodPrefix =
-            compilationUnit.getPackageDeclaration()
-                .map(PackageDeclaration::getNameAsString)
-                .orElse("");
+    private void parse(CompilationUnit compilationUnit) {
+        var packageName =
+                compilationUnit.getPackageDeclaration()
+                        .map(PackageDeclaration::getNameAsString)
+                        .orElse("");
 
-        String className = "";
+        var className = "";
         for (ClassOrInterfaceDeclaration classDeclaration
-            : compilationUnit.findAll(ClassOrInterfaceDeclaration.class)) {
+                : compilationUnit.findAll(ClassOrInterfaceDeclaration.class)) {
             className = classDeclaration.getNameAsString();
             break;
         }
-        if (methodPrefix.isEmpty()) {
-            methodPrefix = className;
-        } else {
-            methodPrefix = methodPrefix + "." + className;
-        }
 
         for (MethodDeclaration methodDeclaration : compilationUnit.findAll(MethodDeclaration.class)) {
-            if (!methodDeclaration.isAnnotationPresent​(Test.class)) {
+            if (!methodDeclaration.isAnnotationPresent(Test.class) &&
+                    !methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
                 continue;
             }
-            String fullMethodName = methodPrefix + "." + methodDeclaration.getNameAsString();
-            testCodeByTestName.put(fullMethodName, methodDeclaration.toString());
+            var methodName = methodDeclaration.getNameAsString();
+            var testSource = new TestSource(packageName, className, methodName);
+            testCodeByTestName.put(testSource, methodDeclaration.toString());
         }
     }
 
-    public ImmutableMap<String, String> buildTestCodeMap() {
+    public ImmutableMap<TestSource, String> buildTestCodeMap() {
         return testCodeByTestName.build();
     }
 }

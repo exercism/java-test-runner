@@ -8,3 +8,5 @@ target
 
 results.json
 !/bin/
+
+.idea

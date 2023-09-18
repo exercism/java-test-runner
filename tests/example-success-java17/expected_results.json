@@ -1,60 +1,41 @@
 {
   "status" : "pass",
-  "message" : null,
   "tests" : [ {
-    "name" : "LeapTest.testYearDivBy100NotDivBy3IsNotLeapYear",
+    "name" : "testYearDivBy100NotDivBy3IsNotLeapYear",
     "test_code" : "@Test\npublic void testYearDivBy100NotDivBy3IsNotLeapYear() {\n    assertFalse(leap.isLeapYear(1900));\n}",
-    "status" : "pass",
-    "message" : null,
-    "output" : null
+    "status" : "pass"
   }, {
-    "name" : "LeapTest.testYearDivBy2NotDivBy4InCommonYear",
+    "name" : "testYearDivBy2NotDivBy4InCommonYear",
     "test_code" : "@Test\npublic void testYearDivBy2NotDivBy4InCommonYear() {\n    assertFalse(leap.isLeapYear(1970));\n}",
-    "status" : "pass",
-    "message" : null,
-    "output" : null
+    "status" : "pass"
   }, {
-    "name" : "LeapTest.testYearDivBy400InLeapYear",
+    "name" : "testYearDivBy400InLeapYear",
     "test_code" : "@Test\npublic void testYearDivBy400InLeapYear() {\n    assertTrue(leap.isLeapYear(2000));\n}",
-    "status" : "pass",
-    "message" : null,
-    "output" : null
+    "status" : "pass"
   }, {
-    "name" : "LeapTest.testYearNotDivBy4InCommonYear",
+    "name" : "testYearNotDivBy4InCommonYear",
     "test_code" : "@Test\npublic void testYearNotDivBy4InCommonYear() {\n    assertFalse(leap.isLeapYear(2015));\n}",
-    "status" : "pass",
-    "message" : null,
-    "output" : null
+    "status" : "pass"
   }, {
-    "name" : "LeapTest.testYearDivBy4NotDivBy100InLeapYear",
+    "name" : "testYearDivBy4NotDivBy100InLeapYear",
     "test_code" : "@Test\npublic void testYearDivBy4NotDivBy100InLeapYear() {\n    assertTrue(leap.isLeapYear(1996));\n}",
-    "status" : "pass",
-    "message" : null,
-    "output" : null
+    "status" : "pass"
   }, {
-    "name" : "LeapTest.testYearDivBy400NotDivBy125IsLeapYear",
+    "name" : "testYearDivBy400NotDivBy125IsLeapYear",
     "test_code" : "@Test\npublic void testYearDivBy400NotDivBy125IsLeapYear() {\n    assertTrue(leap.isLeapYear(2400));\n}",
-    "status" : "pass",
-    "message" : null,
-    "output" : null
+    "status" : "pass"
   }, {
-    "name" : "LeapTest.testYearDivBy100NotDivBy400InCommonYear",
+    "name" : "testYearDivBy100NotDivBy400InCommonYear",
     "test_code" : "@Test\npublic void testYearDivBy100NotDivBy400InCommonYear() {\n    assertFalse(leap.isLeapYear(2100));\n}",
-    "status" : "pass",
-    "message" : null,
-    "output" : null
+    "status" : "pass"
   }, {
-    "name" : "LeapTest.testYearDivBy200NotDivBy400InCommonYear",
+    "name" : "testYearDivBy200NotDivBy400InCommonYear",
     "test_code" : "@Test\npublic void testYearDivBy200NotDivBy400InCommonYear() {\n    assertFalse(leap.isLeapYear(1800));\n}",
-    "status" : "pass",
-    "message" : null,
-    "output" : null
+    "status" : "pass"
   }, {
-    "name" : "LeapTest.testYearDivBy4And5InLeapYear",
+    "name" : "testYearDivBy4And5InLeapYear",
     "test_code" : "@Test\npublic void testYearDivBy4And5InLeapYear() {\n    assertTrue(leap.isLeapYear(1960));\n}",
-    "status" : "pass",
-    "message" : null,
-    "output" : null
+    "status" : "pass"
   } ],
   "version" : 2
 }
