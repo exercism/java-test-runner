@@ -37,5 +37,5 @@
     "test_code" : "@Test\npublic void testYearDivBy4And5InLeapYear() {\n    assertTrue(leap.isLeapYear(1960));\n}",
     "status" : "pass"
   } ],
-  "version" : 2
+  "version" : 3
 }

@@ -12,12 +12,10 @@ public class ReportGenerator {
     public static Report generate(Collection<TestDetails> testDetails, Map<TestSource, String> testCodeMap) {
         var reportDetails = testDetails.stream().map(item -> buildTestDetails(item, testCodeMap)).toList();
         var reportStatus = collapseStatuses(testDetails.stream().map(details -> details.result().status()).toList());
-        var reportVersion = testDetails.stream().anyMatch(details -> details.metadata().taskId().isPresent()) ? 3 : 2;
 
         return Report.builder()
                 .setTests(reportDetails)
                 .setStatus(mapStatus(reportStatus))
-                .setVersion(reportVersion)
                 .build();
     }
 
