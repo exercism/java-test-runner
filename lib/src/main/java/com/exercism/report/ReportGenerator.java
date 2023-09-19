@@ -11,7 +11,7 @@ import java.util.Map;
 public class ReportGenerator {
     public static Report generate(Collection<TestDetails> testDetails, Map<TestSource, String> testCodeMap) {
         var reportDetails = testDetails.stream().map(item -> buildTestDetails(item, testCodeMap)).toList();
-        var reportStatus = collapseStatuses(testDetails.stream().map(details -> details.result().status()).toList());
+        var reportStatus = collapseStatuses(testDetails);
 
         return Report.builder()
                 .setTests(reportDetails)
@@ -44,17 +44,7 @@ public class ReportGenerator {
         };
     }
 
-    private static TestStatus collapseStatuses(Collection<TestStatus> statuses) {
-        for (TestStatus status : statuses) {
-            if (status == TestStatus.ERROR) {
-                return TestStatus.ERROR;
-            }
-
-            if (status == TestStatus.FAIL) {
-                return TestStatus.FAIL;
-            }
-        }
-
-        return TestStatus.PASS;
+    private static TestStatus collapseStatuses(Collection<TestDetails> testDetails) {
+        return testDetails.stream().allMatch(details -> details.result().status() == TestStatus.PASS) ? TestStatus.PASS : TestStatus.FAIL;
     }
 }
