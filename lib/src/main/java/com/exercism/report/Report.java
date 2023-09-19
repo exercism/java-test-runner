@@ -25,7 +25,7 @@ public abstract class Report {
 	public abstract int version();
 
 	public static Builder builder() {
-	  return new AutoValue_Report.Builder().setVersion(2);
+	  return new AutoValue_Report.Builder().setVersion(3);
 	}
 
 	@AutoValue.Builder

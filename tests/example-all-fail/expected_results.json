@@ -46,5 +46,5 @@
     "status" : "fail",
     "message" : "Message: null\nException: java.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java:87)\n\tat org.junit.Assert.assertTrue(Assert.java:42)\n\tat org.junit.Assert.assertTrue(Assert.java:53)\n\tat LeapTest.testYearDivBy4And5InLeapYear(LeapTest.java:37)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:568)\n"
   } ],
-  "version" : 2
+  "version" : 3
 }
