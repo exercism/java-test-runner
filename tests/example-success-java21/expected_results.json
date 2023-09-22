@@ -1,0 +1,17 @@
+{
+  "status" : "pass",
+  "tests" : [ {
+    "name": "noNameGiven",
+    "test_code": "@Test\npublic void noNameGiven() {\n    assertThat(twofer.twofer(null))\n            .isEqualTo(\"One for you, one for me.\");\n}",
+    "status": "pass"
+  }, {
+    "name": "aNameGiven",
+    "test_code": "@Test\npublic void aNameGiven() {\n    assertThat(twofer.twofer(\"Alice\"))\n            .isEqualTo(\"One for Alice, one for me.\");\n}",
+    "status": "pass"
+  }, {
+    "name": "anotherNameGiven",
+    "test_code": "@Test\npublic void anotherNameGiven() {\n    assertThat(twofer.twofer(\"Bob\"))\n            .isEqualTo(\"One for Bob, one for me.\");\n}",
+    "status": "pass"
+  } ],
+  "version" : 3
+}

@@ -1,0 +1,20 @@
+plugins {
+    id "java"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "junit:junit:4.13.1"
+    testImplementation "org.assertj:assertj-core:3.15.0"
+}
+
+test {
+    testLogging {
+        exceptionFormat = "full"
+        showStandardStreams = true
+        events = ["passed", "failed", "skipped"]
+    }
+}
