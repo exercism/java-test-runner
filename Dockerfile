@@ -1,6 +1,6 @@
 # === Build builder image ===
 
-FROM gradle:8.2-jdk17 AS build
+FROM gradle:8.4-jdk21 AS build
 
 WORKDIR /home/builder
 
@@ -15,7 +15,7 @@ RUN gradle -i shadowJar \
 
 # === Build runtime image ===
 
-FROM eclipse-temurin:17-focal
+FROM eclipse-temurin:21
 WORKDIR /opt/test-runner
 
 # Copy binary and launcher script
