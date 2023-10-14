@@ -1,39 +1,42 @@
 {
   "authors": [
-    "Smarticles101"
+    "counterleft"
   ],
   "contributors": [
+    "aryasaatvik",
     "FridaTveit",
-    "ikhadykin",
+    "hugueschabot",
+    "javaeeeee",
     "jmrunkle",
-    "jssander",
+    "jtigger",
     "kytrinyx",
     "lemoncurry",
+    "matthewmorgan",
+    "mirkoperillo",
+    "mraediaz",
     "msomji",
     "muzimuzhi",
-    "rdavid1099",
-    "sjwarner-bp",
+    "Ppapierski",
     "SleeplessByte",
+    "Smarticles101",
     "sshine",
     "stkent",
-    "uzilan",
-    "Valkryst",
-    "ymoskovits"
+    "Zaldrick"
   ],
   "files": {
     "solution": [
-      "src/main/java/Twofer.java"
+      "src/main/java/DoublyLinkedList.java"
     ],
     "test": [
-      "src/test/java/TwoferTest.java"
+      "src/test/java/DoublyLinkedListTest.java"
     ],
     "example": [
-      ".meta/src/reference/java/Twofer.java"
+      ".meta/src/reference/java/DoublyLinkedList.java"
     ],
     "invalidator": [
       "build.gradle"
     ]
   },
-  "blurb": "Create a sentence of the form \"One for X, one for me.\".",
-  "source_url": "https://github.com/exercism/problem-specifications/issues/757"
+  "blurb": "Implement a doubly linked list.",
+  "source": "Classic computer science topic"
 }
