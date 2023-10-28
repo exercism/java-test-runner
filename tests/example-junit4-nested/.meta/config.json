@@ -1,0 +1,40 @@
+{
+  "authors": [],
+  "contributors": [
+    "FridaTveit",
+    "jmrunkle",
+    "jtigger",
+    "JTMaher2",
+    "kytrinyx",
+    "lemoncurry",
+    "matthewmorgan",
+    "mirkoperillo",
+    "morrme",
+    "msomji",
+    "muzimuzhi",
+    "RonakLakhotia",
+    "SleeplessByte",
+    "Smarticles101",
+    "sshine",
+    "stkent",
+    "vdemeester",
+    "Zaldrick"
+  ],
+  "files": {
+    "solution": [
+      "src/main/java/Cipher.java"
+    ],
+    "test": [
+      "src/test/java/SimpleCipherTest.java"
+    ],
+    "example": [
+      ".meta/src/reference/java/Cipher.java"
+    ],
+    "invalidator": [
+      "build.gradle"
+    ]
+  },
+  "blurb": "Implement a simple shift cipher like Caesar and a more secure substitution cipher.",
+  "source": "Substitution Cipher at Wikipedia",
+  "source_url": "https://en.wikipedia.org/wiki/Substitution_cipher"
+}
