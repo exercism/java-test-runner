@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public final class JUnitTestParser {
     private final ImmutableMap.Builder<TestSource, String> testCodeByTestName = ImmutableMap.builder();
@@ -29,22 +30,28 @@ public final class JUnitTestParser {
                         .map(PackageDeclaration::getNameAsString)
                         .orElse("");
 
-        var className = "";
-        for (ClassOrInterfaceDeclaration classDeclaration
-                : compilationUnit.findAll(ClassOrInterfaceDeclaration.class)) {
-            className = classDeclaration.getNameAsString();
-            break;
-        }
-
         for (MethodDeclaration methodDeclaration : compilationUnit.findAll(MethodDeclaration.class)) {
             if (!methodDeclaration.isAnnotationPresent(Test.class) &&
                     !methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
                 continue;
             }
             var methodName = methodDeclaration.getNameAsString();
+            var className = getClassName(methodDeclaration);
             var testSource = new TestSource(packageName, className, methodName);
             testCodeByTestName.put(testSource, methodDeclaration.toString());
         }
+    }
+
+    private static String getClassName(MethodDeclaration testMethod) {
+        var classNames = new ArrayList<String>();
+        var parentNode = testMethod.getParentNode();
+
+        while (parentNode.isPresent() && parentNode.get() instanceof ClassOrInterfaceDeclaration parentClass) {
+            classNames.add(parentClass.getNameAsString());
+            parentNode = parentClass.getParentNode();
+        }
+
+        return String.join("$", classNames.reversed());
     }
 
     public ImmutableMap<TestSource, String> buildTestCodeMap() {
