@@ -3,6 +3,7 @@ package com.exercism.junit;
 import com.exercism.*;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestTag;
+import org.junit.platform.engine.discovery.ClassNameFilter;
 import org.junit.platform.engine.discovery.DiscoverySelectors;
 import org.junit.platform.engine.reporting.ReportEntry;
 import org.junit.platform.engine.support.descriptor.MethodSource;
@@ -30,6 +31,7 @@ public class JUnitTestRunner implements TestExecutionListener {
         Thread.currentThread().setContextClassLoader(classLoader);
         var request = LauncherDiscoveryRequestBuilder.request()
                 .selectors(DiscoverySelectors.selectClasspathRoots(classpathRoots))
+                .filters(ClassNameFilter.excludeClassNamePatterns(".+\\$.+"))
                 .configurationParameter("junit.platform.output.capture.stdout", "true")
                 .build();
         var launcher = LauncherFactory.create();
