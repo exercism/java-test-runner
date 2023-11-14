@@ -1,8 +1,8 @@
 # Exercism Java test runner
 
-A test runner automatically verifies if a submission passes all the tests.
+An [Exercism test runner][test-runner-docs] automatically verifies if a submission passes all the tests.
 
-This repository contains the Java test runner, which implements the [test runner interface][test-runner-interface].
+This repository contains the Java test runner, which implements the V3 spec of the [test runner interface][test-runner-interface-docs].
 
 ## Run the test runner
 
@@ -54,6 +54,7 @@ All files created during the test run itself are discarded.
 When you've made modifications to the code that will result in a new "golden" state, 
 you'll need to generate and commit a new `tests/<test-name>/expected_results.json` file.
 
-[test-runners]: https://github.com/exercism/docs/tree/main/building/tooling/test-runners
+[test-runner-docs]: https://exercism.org/docs/building/tooling/test-runners
+[test-runner-interface-docs]: https://exercism.org/docs/building/tooling/test-runners/interface
 [golden]: https://ro-che.info/articles/2017-12-04-golden-tests
-[exercism]: https://exercism.io
+[exercism]: https://exercism.org
