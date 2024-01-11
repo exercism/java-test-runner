@@ -22,7 +22,7 @@ dependencies {
     implementation 'com.github.javaparser:javaparser-core:3.23.0'
 
     implementation 'junit:junit:4.13.1'
-    implementation 'org.assertj:assertj-core:3.15.0'
+    implementation 'org.assertj:assertj-core:3.25.1'
     implementation platform('org.junit:junit-bom:5.10.0')
     implementation 'org.junit.jupiter:junit-jupiter'
     implementation 'org.junit.platform:junit-platform-launcher'
