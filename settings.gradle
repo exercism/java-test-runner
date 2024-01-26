@@ -1,13 +1,1 @@
 rootProject.name = "java-test-runner"
-
-include 'lib'
-include 'tests:solution-does-not-compile'
-include 'tests:solution-file-empty'
-include 'tests:solution-passes-all-tests'
-include 'tests:solution-passes-no-tests'
-include 'tests:solution-passes-some-tests'
-include 'tests:solution-uses-java17'
-include 'tests:solution-uses-java21'
-include 'tests:solution-writes-to-console'
-include 'tests:tests-with-task-ids-and-display-names'
-include 'tests:tests-with-nested-classes'

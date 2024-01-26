@@ -34,7 +34,7 @@ dependencies {
 
 shadowJar {
     mergeServiceFiles()
-    archiveFileName.set("autotest-runner.jar")
+    archiveFileName.set("java-test-runner.jar")
 }
 
 artifacts {
