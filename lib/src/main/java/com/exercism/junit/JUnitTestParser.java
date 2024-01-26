@@ -7,7 +7,6 @@ import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.google.common.collect.ImmutableMap;
-import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,8 +30,7 @@ public final class JUnitTestParser {
                         .orElse("");
 
         for (MethodDeclaration methodDeclaration : compilationUnit.findAll(MethodDeclaration.class)) {
-            if (!methodDeclaration.isAnnotationPresent(Test.class) &&
-                    !methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
+            if (!methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
                 continue;
             }
             var methodName = methodDeclaration.getNameAsString();

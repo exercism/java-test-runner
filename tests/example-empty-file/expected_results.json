@@ -1,6 +1,0 @@
-{
-  "status" : "error",
-  "message" : "./src/test/java/LeapTest.java:10: error: cannot find symbol\n    private Leap leap;\n            ^\n  symbol:   class Leap\n  location: class LeapTest./src/test/java/LeapTest.java:14: error: cannot find symbol\n        leap = new Leap();\n                   ^\n  symbol:   class Leap\n  location: class LeapTest",
-  "tests" : [ ],
-  "version" : 3
-}

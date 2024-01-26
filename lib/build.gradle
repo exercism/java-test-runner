@@ -20,13 +20,11 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.12.5'
     implementation 'com.github.javaparser:javaparser-core:3.23.0'
-
-    implementation 'junit:junit:4.13.1'
+    
     implementation 'org.assertj:assertj-core:3.25.1'
     implementation platform('org.junit:junit-bom:5.10.0')
     implementation 'org.junit.jupiter:junit-jupiter'
     implementation 'org.junit.platform:junit-platform-launcher'
-    runtimeOnly 'org.junit.vintage:junit-vintage-engine'
     runtimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
     // Add exercise dependencies to runtime classpath
