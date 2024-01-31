@@ -30,7 +30,8 @@ public final class JUnitTestParser {
                         .orElse("");
 
         for (MethodDeclaration methodDeclaration : compilationUnit.findAll(MethodDeclaration.class)) {
-            if (!methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)) {
+            if (!methodDeclaration.isAnnotationPresent(org.junit.jupiter.api.Test.class)
+                && !methodDeclaration.isAnnotationPresent( org.junit.jupiter.params.ParameterizedTest.class)) {
                 continue;
             }
             var methodName = methodDeclaration.getNameAsString();
