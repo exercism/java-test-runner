@@ -1,31 +1,31 @@
 {
   "status" : "pass",
   "tests" : [ {
-    "name" : "testIsLeapYear(int, boolean)[1] 2015, false",
+    "name" : "testIsLeapYear(int, boolean) - 2015, false",
     "test_code" : "@ParameterizedTest\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
     "status" : "pass"
   }, {
-    "name" : "testIsLeapYear(int, boolean)[2] 1970, false",
+    "name" : "testIsLeapYear(int, boolean) - 1970, false",
     "test_code" : "@ParameterizedTest\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
     "status" : "pass"
   }, {
-    "name" : "testIsLeapYear(int, boolean)[3] 1960, true",
+    "name" : "testIsLeapYear(int, boolean) - 1960, true",
     "test_code" : "@ParameterizedTest\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
     "status" : "pass"
   }, {
-    "name" : "testIsLeapYear(int, boolean)[4] 2100, false",
+    "name" : "testIsLeapYear(int, boolean) - 2100, false",
     "test_code" : "@ParameterizedTest\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
     "status" : "pass"
   }, {
-    "name" : "testIsLeapYear(int, boolean)[5] 2000, true",
+    "name" : "testIsLeapYear(int, boolean) - 2000, true",
     "test_code" : "@ParameterizedTest\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
     "status" : "pass"
   }, {
-    "name" : "testIsLeapYear(int, boolean)[6] 2400, true",
+    "name" : "testIsLeapYear(int, boolean) - 2400, true",
     "test_code" : "@ParameterizedTest\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
     "status" : "pass"
   }, {
-    "name" : "testIsLeapYear(int, boolean)[7] 1800, false",
+    "name" : "testIsLeapYear(int, boolean) - 1800, false",
     "test_code" : "@ParameterizedTest\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
     "status" : "pass"
   } ],
