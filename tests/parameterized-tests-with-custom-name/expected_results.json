@@ -1,0 +1,33 @@
+{
+  "status" : "pass",
+  "tests" : [ {
+    "name" : "customName 2015, false",
+    "test_code" : "@ParameterizedTest(name = \"customName \" + ARGUMENTS_WITH_NAMES_PLACEHOLDER)\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
+    "status" : "pass"
+  }, {
+    "name" : "customName 1970, false",
+    "test_code" : "@ParameterizedTest(name = \"customName \" + ARGUMENTS_WITH_NAMES_PLACEHOLDER)\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
+    "status" : "pass"
+  }, {
+    "name" : "customName 1960, true",
+    "test_code" : "@ParameterizedTest(name = \"customName \" + ARGUMENTS_WITH_NAMES_PLACEHOLDER)\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
+    "status" : "pass"
+  }, {
+    "name" : "customName 2100, false",
+    "test_code" : "@ParameterizedTest(name = \"customName \" + ARGUMENTS_WITH_NAMES_PLACEHOLDER)\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
+    "status" : "pass"
+  }, {
+    "name" : "customName 2000, true",
+    "test_code" : "@ParameterizedTest(name = \"customName \" + ARGUMENTS_WITH_NAMES_PLACEHOLDER)\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
+    "status" : "pass"
+  }, {
+    "name" : "customName 2400, true",
+    "test_code" : "@ParameterizedTest(name = \"customName \" + ARGUMENTS_WITH_NAMES_PLACEHOLDER)\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
+    "status" : "pass"
+  }, {
+    "name" : "customName 1800, false",
+    "test_code" : "@ParameterizedTest(name = \"customName \" + ARGUMENTS_WITH_NAMES_PLACEHOLDER)\n@MethodSource(\"params\")\npublic void testIsLeapYear(int year, boolean expected) {\n    assertThat(leap.isLeapYear(year)).isEqualTo(expected);\n}",
+    "status" : "pass"
+  } ],
+  "version" : 3
+}
