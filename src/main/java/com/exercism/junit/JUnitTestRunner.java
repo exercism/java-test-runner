@@ -33,6 +33,7 @@ public class JUnitTestRunner implements TestExecutionListener {
                 .selectors(DiscoverySelectors.selectClasspathRoots(classpathRoots))
                 .filters(ClassNameFilter.excludeClassNamePatterns(".+\\$.+"))
                 .configurationParameter("junit.platform.output.capture.stdout", "true")
+                .configurationParameter("junit.jupiter.params.displayname.default", "{displayName} - {argumentsWithNames}")
                 .build();
         var launcher = LauncherFactory.create();
         var testPlan = launcher.discover(request);
