@@ -1,8 +1,23 @@
 version: 2
 
 updates:
-  # Keep GitHub Actions dependencies up-to-date
-  - package-ecosystem: "github-actions"
+  - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: daily
+    labels:
+      - "x:size/tiny"
+
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels:
+      - "x:size/small"
+
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels:
+      - "x:size/small"
