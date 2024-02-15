@@ -6,14 +6,15 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.google.common.collect.ImmutableMap;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public final class JUnitTestParser {
-    private final ImmutableMap.Builder<TestSource, String> testCodeByTestName = ImmutableMap.builder();
+    private final Map<TestSource, String> testCodeByTestName = new LinkedHashMap<>();
 
     public void parse(File file) {
         try {
@@ -53,7 +54,7 @@ public final class JUnitTestParser {
         return String.join("$", classNames.reversed());
     }
 
-    public ImmutableMap<TestSource, String> buildTestCodeMap() {
-        return testCodeByTestName.build();
+    public Map<TestSource, String> buildTestCodeMap() {
+        return new LinkedHashMap<>(testCodeByTestName);
     }
 }

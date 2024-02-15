@@ -5,13 +5,20 @@ import com.exercism.TestSource;
 import com.exercism.TestStatus;
 import com.google.common.base.Throwables;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
 public class ReportGenerator {
     public static Report generate(Collection<TestDetails> testDetails, Map<TestSource, String> testCodeMap) {
-        var reportDetails = testDetails.stream().map(item -> buildTestDetails(item, testCodeMap)).toList();
         var reportStatus = collapseStatuses(testDetails);
+        var reportDetails = new ArrayList<com.exercism.report.TestDetails>();
+
+        for (var entry : testCodeMap.entrySet()) {
+            testDetails.stream()
+                    .filter(item -> item.source().equals(entry.getKey()))
+                    .forEach(item -> reportDetails.add(buildTestDetails(item, entry.getValue())));
+        }
 
         return Report.builder()
                 .setTests(reportDetails)
@@ -19,10 +26,10 @@ public class ReportGenerator {
                 .build();
     }
 
-    private static com.exercism.report.TestDetails buildTestDetails(TestDetails testDetails, Map<TestSource, String> testCodeMap) {
+    private static com.exercism.report.TestDetails buildTestDetails(TestDetails testDetails, String testCode) {
         var detailBuilder = com.exercism.report.TestDetails.builder()
                 .setStatus(mapStatus(testDetails.result().status()))
-                .setTestCode(testCodeMap.get(testDetails.source()))
+                .setTestCode(testCode)
                 .setName(testDetails.metadata().name())
                 .setOutput(testDetails.output());
 

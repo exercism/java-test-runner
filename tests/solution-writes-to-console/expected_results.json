@@ -1,8 +1,8 @@
 {
   "status" : "pass",
   "tests" : [ {
-    "name" : "testYearDivBy100NotDivBy3IsNotLeapYear()",
-    "test_code" : "@Test\npublic void testYearDivBy100NotDivBy3IsNotLeapYear() {\n    assertThat(leap.isLeapYear(1900)).isFalse();\n}",
+    "name" : "testYearNotDivBy4InCommonYear()",
+    "test_code" : "@Test\npublic void testYearNotDivBy4InCommonYear() {\n    assertThat(leap.isLeapYear(2015)).isFalse();\n}",
     "status" : "pass",
     "output" : "Printing to stdout\n"
   }, {
@@ -11,23 +11,13 @@
     "status" : "pass",
     "output" : "Printing to stdout\n"
   }, {
-    "name" : "testYearDivBy400InLeapYear()",
-    "test_code" : "@Test\npublic void testYearDivBy400InLeapYear() {\n    assertThat(leap.isLeapYear(2000)).isTrue();\n}",
-    "status" : "pass",
-    "output" : "Printing to stdout\n"
-  }, {
-    "name" : "testYearNotDivBy4InCommonYear()",
-    "test_code" : "@Test\npublic void testYearNotDivBy4InCommonYear() {\n    assertThat(leap.isLeapYear(2015)).isFalse();\n}",
-    "status" : "pass",
-    "output" : "Printing to stdout\n"
-  }, {
     "name" : "testYearDivBy4NotDivBy100InLeapYear()",
     "test_code" : "@Test\npublic void testYearDivBy4NotDivBy100InLeapYear() {\n    assertThat(leap.isLeapYear(1996)).isTrue();\n}",
     "status" : "pass",
     "output" : "Printing to stdout\n"
   }, {
-    "name" : "testYearDivBy400NotDivBy125IsLeapYear()",
-    "test_code" : "@Test\npublic void testYearDivBy400NotDivBy125IsLeapYear() {\n    assertThat(leap.isLeapYear(2400)).isTrue();\n}",
+    "name" : "testYearDivBy4And5InLeapYear()",
+    "test_code" : "@Test\npublic void testYearDivBy4And5InLeapYear() {\n    assertThat(leap.isLeapYear(1960)).isTrue();\n}",
     "status" : "pass",
     "output" : "Printing to stdout\n"
   }, {
@@ -36,13 +26,23 @@
     "status" : "pass",
     "output" : "Printing to stdout\n"
   }, {
-    "name" : "testYearDivBy200NotDivBy400InCommonYear()",
-    "test_code" : "@Test\npublic void testYearDivBy200NotDivBy400InCommonYear() {\n    assertThat(leap.isLeapYear(1800)).isFalse();\n}",
+    "name" : "testYearDivBy100NotDivBy3IsNotLeapYear()",
+    "test_code" : "@Test\npublic void testYearDivBy100NotDivBy3IsNotLeapYear() {\n    assertThat(leap.isLeapYear(1900)).isFalse();\n}",
     "status" : "pass",
     "output" : "Printing to stdout\n"
   }, {
-    "name" : "testYearDivBy4And5InLeapYear()",
-    "test_code" : "@Test\npublic void testYearDivBy4And5InLeapYear() {\n    assertThat(leap.isLeapYear(1960)).isTrue();\n}",
+    "name" : "testYearDivBy400InLeapYear()",
+    "test_code" : "@Test\npublic void testYearDivBy400InLeapYear() {\n    assertThat(leap.isLeapYear(2000)).isTrue();\n}",
+    "status" : "pass",
+    "output" : "Printing to stdout\n"
+  }, {
+    "name" : "testYearDivBy400NotDivBy125IsLeapYear()",
+    "test_code" : "@Test\npublic void testYearDivBy400NotDivBy125IsLeapYear() {\n    assertThat(leap.isLeapYear(2400)).isTrue();\n}",
+    "status" : "pass",
+    "output" : "Printing to stdout\n"
+  }, {
+    "name" : "testYearDivBy200NotDivBy400InCommonYear()",
+    "test_code" : "@Test\npublic void testYearDivBy200NotDivBy400InCommonYear() {\n    assertThat(leap.isLeapYear(1800)).isFalse();\n}",
     "status" : "pass",
     "output" : "Printing to stdout\n"
   } ],
