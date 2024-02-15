@@ -1,24 +1,24 @@
 {
   "status" : "pass",
   "tests" : [ {
-    "name" : "testExample()",
-    "test_code" : "@Test\npublic void testExample() {\n    DoublyLinkedList<String> list = new DoublyLinkedList<>();\n    list.push(\"ten\");\n    list.push(\"twenty\");\n    assertThat(list.pop()).isEqualTo(\"twenty\");\n    list.push(\"thirty\");\n    assertThat(list.shift()).isEqualTo(\"ten\");\n    list.unshift(\"forty\");\n    list.push(\"fifty\");\n    assertThat(list.shift()).isEqualTo(\"forty\");\n    assertThat(list.pop()).isEqualTo(\"fifty\");\n    assertThat(list.shift()).isEqualTo(\"thirty\");\n}",
+    "name" : "testPushPop()",
+    "test_code" : "@Test\npublic void testPushPop() {\n    DoublyLinkedList<Integer> list = new DoublyLinkedList<>();\n    list.push(10);\n    list.push(20);\n    list.push(30);\n    assertThat(list.pop()).isEqualTo(30);\n    assertThat(list.pop()).isEqualTo(20);\n    assertThat(list.pop()).isEqualTo(10);\n}",
+    "status" : "pass"
+  }, {
+    "name" : "testPushOncePopTwice()",
+    "test_code" : "@Test\npublic void testPushOncePopTwice() {\n    DoublyLinkedList<Integer> list = new DoublyLinkedList<>();\n    list.push(10);\n    assertThat(list.pop()).isEqualTo(10);\n    assertThat(list.pop()).isNull();\n}",
+    "status" : "pass"
+  }, {
+    "name" : "testPushShift()",
+    "test_code" : "@Test\npublic void testPushShift() {\n    DoublyLinkedList<String> list = new DoublyLinkedList<>();\n    list.push(\"10\");\n    list.push(\"20\");\n    list.push(\"30\");\n    assertThat(list.shift()).isEqualTo(\"10\");\n    assertThat(list.shift()).isEqualTo(\"20\");\n    assertThat(list.shift()).isEqualTo(\"30\");\n}",
     "status" : "pass"
   }, {
     "name" : "testPushPopShift()",
     "test_code" : "@Test\npublic void testPushPopShift() {\n    DoublyLinkedList<Integer> list = new DoublyLinkedList<>();\n    list.push(10);\n    assertThat(list.pop()).isEqualTo(10);\n    assertThat(list.shift()).isNull();\n}",
     "status" : "pass"
   }, {
-    "name" : "testUnshiftShiftPop()",
-    "test_code" : "@Test\npublic void testUnshiftShiftPop() {\n    DoublyLinkedList<Integer> list = new DoublyLinkedList<>();\n    list.unshift(10);\n    assertThat(list.shift()).isEqualTo(10);\n    assertThat(list.pop()).isNull();\n}",
-    "status" : "pass"
-  }, {
-    "name" : "testPushPop()",
-    "test_code" : "@Test\npublic void testPushPop() {\n    DoublyLinkedList<Integer> list = new DoublyLinkedList<>();\n    list.push(10);\n    list.push(20);\n    list.push(30);\n    assertThat(list.pop()).isEqualTo(30);\n    assertThat(list.pop()).isEqualTo(20);\n    assertThat(list.pop()).isEqualTo(10);\n}",
-    "status" : "pass"
-  }, {
-    "name" : "testPushShift()",
-    "test_code" : "@Test\npublic void testPushShift() {\n    DoublyLinkedList<String> list = new DoublyLinkedList<>();\n    list.push(\"10\");\n    list.push(\"20\");\n    list.push(\"30\");\n    assertThat(list.shift()).isEqualTo(\"10\");\n    assertThat(list.shift()).isEqualTo(\"20\");\n    assertThat(list.shift()).isEqualTo(\"30\");\n}",
+    "name" : "testUnshiftShift()",
+    "test_code" : "@Test\npublic void testUnshiftShift() {\n    DoublyLinkedList<Character> list = new DoublyLinkedList<>();\n    list.unshift('1');\n    list.unshift('2');\n    list.unshift('3');\n    assertThat(list.shift()).isEqualTo('3');\n    assertThat(list.shift()).isEqualTo('2');\n    assertThat(list.shift()).isEqualTo('1');\n}",
     "status" : "pass"
   }, {
     "name" : "testUnshiftOnceShiftTwice()",
@@ -29,12 +29,12 @@
     "test_code" : "@Test\npublic void testUnshiftPop() {\n    DoublyLinkedList<Integer> list = new DoublyLinkedList<>();\n    list.unshift(10);\n    list.unshift(20);\n    list.unshift(30);\n    assertThat(list.pop()).isEqualTo(10);\n    assertThat(list.pop()).isEqualTo(20);\n    assertThat(list.pop()).isEqualTo(30);\n}",
     "status" : "pass"
   }, {
-    "name" : "testUnshiftShift()",
-    "test_code" : "@Test\npublic void testUnshiftShift() {\n    DoublyLinkedList<Character> list = new DoublyLinkedList<>();\n    list.unshift('1');\n    list.unshift('2');\n    list.unshift('3');\n    assertThat(list.shift()).isEqualTo('3');\n    assertThat(list.shift()).isEqualTo('2');\n    assertThat(list.shift()).isEqualTo('1');\n}",
+    "name" : "testUnshiftShiftPop()",
+    "test_code" : "@Test\npublic void testUnshiftShiftPop() {\n    DoublyLinkedList<Integer> list = new DoublyLinkedList<>();\n    list.unshift(10);\n    assertThat(list.shift()).isEqualTo(10);\n    assertThat(list.pop()).isNull();\n}",
     "status" : "pass"
   }, {
-    "name" : "testPushOncePopTwice()",
-    "test_code" : "@Test\npublic void testPushOncePopTwice() {\n    DoublyLinkedList<Integer> list = new DoublyLinkedList<>();\n    list.push(10);\n    assertThat(list.pop()).isEqualTo(10);\n    assertThat(list.pop()).isNull();\n}",
+    "name" : "testExample()",
+    "test_code" : "@Test\npublic void testExample() {\n    DoublyLinkedList<String> list = new DoublyLinkedList<>();\n    list.push(\"ten\");\n    list.push(\"twenty\");\n    assertThat(list.pop()).isEqualTo(\"twenty\");\n    list.push(\"thirty\");\n    assertThat(list.shift()).isEqualTo(\"ten\");\n    list.unshift(\"forty\");\n    list.push(\"fifty\");\n    assertThat(list.shift()).isEqualTo(\"forty\");\n    assertThat(list.pop()).isEqualTo(\"fifty\");\n    assertThat(list.shift()).isEqualTo(\"thirty\");\n}",
     "status" : "pass"
   } ],
   "version" : 3
