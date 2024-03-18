@@ -17,7 +17,7 @@ dependencies {
     annotationProcessor 'com.google.auto.value:auto-value:1.8.2'
     implementation 'com.google.guava:guava:30.1.1-jre'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.12.5'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.12.5'
     implementation 'com.github.javaparser:javaparser-core:3.23.0'
     
