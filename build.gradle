@@ -21,7 +21,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.12.5'
     implementation 'com.github.javaparser:javaparser-core:3.23.0'
     
-    implementation 'org.assertj:assertj-core:3.25.1'
+    implementation 'org.assertj:assertj-core:3.25.3'
     implementation 'org.apiguardian:apiguardian-api:1.1.2' // https://github.com/exercism/java-test-runner/issues/79
     implementation platform('org.junit:junit-bom:5.10.0')
     implementation 'org.junit.jupiter:junit-jupiter'
