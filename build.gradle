@@ -29,7 +29,7 @@ dependencies {
     runtimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
     // Add exercise dependencies to runtime classpath
-    runtimeOnly 'org.json:json:20190722' // used in practice:rest-api
+    runtimeOnly 'org.json:json:20240303' // used in practice:rest-api
     runtimeOnly 'io.reactivex.rxjava2:rxjava:2.2.12' // used in practice:hangman
 }
 
