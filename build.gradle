@@ -19,7 +19,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.17.0'
-    implementation 'com.github.javaparser:javaparser-core:3.25.9'
+    implementation 'com.github.javaparser:javaparser-core:3.25.10'
     
     implementation 'org.assertj:assertj-core:3.25.3'
     implementation 'org.apiguardian:apiguardian-api:1.1.2' // https://github.com/exercism/java-test-runner/issues/79
