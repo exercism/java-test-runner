@@ -13,14 +13,17 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.auto.value:auto-value-annotations:1.10.4'
-    annotationProcessor 'com.google.auto.value:auto-value:1.10.4'
+    def autoValueVersion = "1.10.4"
+    def jacksonVersion = "2.17.1"
+
+    implementation "com.google.auto.value:auto-value-annotations:$autoValueVersion"
+    annotationProcessor "com.google.auto.value:auto-value:$autoValueVersion"
     implementation 'com.google.guava:guava:33.1.0-jre'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.17.0'
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$jacksonVersion"
     implementation 'com.github.javaparser:javaparser-core:3.25.10'
-    
+
     implementation 'org.assertj:assertj-core:3.25.3'
     implementation 'org.apiguardian:apiguardian-api:1.1.2' // https://github.com/exercism/java-test-runner/issues/79
     implementation platform('org.junit:junit-bom:5.10.2')
