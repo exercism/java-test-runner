@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    def autoValueVersion = "1.10.4"
+    def autoValueVersion = "1.11.0"
     def jacksonVersion = "2.17.1"
 
     implementation "com.google.auto.value:auto-value-annotations:$autoValueVersion"
