@@ -1,9 +1,7 @@
 .appends
 .git
 .github
-.gradle
 .idea
-gradle
 tests
 .dockerignore
 .gitattributes
@@ -11,5 +9,4 @@ tests
 bin/run-in-docker.sh
 bin/run-tests.sh
 bin/run-tests-in-docker.sh
-gradlew
 gradlew.bat
