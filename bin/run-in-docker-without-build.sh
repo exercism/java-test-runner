@@ -2,7 +2,7 @@
 
 # Synopsis:
 # Run the test runner on a solution using the test runner Docker image.
-# The test runner Docker image is built automatically.
+# The container image is assumed to be already available.
 
 # Arguments:
 # $1: exercise slug
@@ -28,9 +28,6 @@ output_dir=$(realpath "${3%/}")
 
 # Create the output directory if it doesn't exist
 mkdir -p "${output_dir}"
-
-# Build the Docker image
-bin/build-crac-checkpoint-image.sh
 
 # Run the Docker image using the settings mimicking the production environment
 docker run \
