@@ -29,7 +29,6 @@ docker run --cap-add CHECKPOINT_RESTORE \
            --mount type=bind,src="${solution_dir}",dst=/solution \
            --mount type=bind,src="${output_dir}",dst=/output \
            --mount type=tmpfs,dst=/tmp \
-           --tmpfs /openjfx:exec,rw \
            exercism/java-test-runner-crac-checkpoint "${slug}" /solution /output
 
 docker commit --change='ENTRYPOINT ["sh", "/opt/test-runner/bin/run-restore-from-checkpoint.sh"]' java-test-runner-crac exercism/java-test-runner-crac-restore
