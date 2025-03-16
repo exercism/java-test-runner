@@ -37,4 +37,4 @@ docker run \
     --mount type=bind,src="${solution_dir}",dst=/solution \
     --mount type=bind,src="${output_dir}",dst=/output \
     --mount type=tmpfs,dst=/tmp \
-    exercism/java-test-runner-crac-restore "${slug}" /solution /output
+    exercism/java-test-runner "${slug}" /solution /output
