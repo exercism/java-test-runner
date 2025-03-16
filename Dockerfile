@@ -1,14 +1,8 @@
 FROM bellsoft/liberica-runtime-container:jdk-21-crac-musl AS build
 
-WORKDIR /app
-COPY . /app
-RUN /app/gradlew -i --stacktrace clean build
-
-FROM bellsoft/liberica-runtime-container:jdk-21-crac-musl
-
 WORKDIR /opt/test-runner
-COPY bin/run-to-create-crac-checkpoint.sh bin/run-to-create-crac-checkpoint.sh
+COPY build/libs/java-test-runner.jar /opt/test-runner/java-test-runner.jar
 COPY bin/run-restore-from-checkpoint.sh bin/run-restore-from-checkpoint.sh
-COPY --from=build /app/build/libs/java-test-runner.jar .
+COPY --link build/cr /opt/test-runner/crac-checkpoint
 
-ENTRYPOINT ["sh", "/opt/test-runner/bin/run-to-create-crac-checkpoint.sh"]
+ENTRYPOINT ["sh", "/opt/test-runner/bin/run-restore-from-checkpoint.sh"]

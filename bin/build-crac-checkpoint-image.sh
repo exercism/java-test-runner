@@ -7,31 +7,11 @@
 # The final image is created by committing the containiner
 # containing the checkpoint.
 
-docker build -t exercism/java-test-runner-crac-checkpoint .
+# build outside of Docker container, so we can copy jar into both images
+./gradlew build
 
-# Copy all tests into one merged project, so we can warm up the JVM
-# TODO(FAP): this is missing some tests as most tests use the same filenames
-mkdir -p tests/merged
-for dir in tests/*; do
-    if [ -d "$dir" ] && [ "$dir" != "tests/merged/" ]; then
-        rsync -a "$dir"/ tests/merged/
-    fi
-done
+docker build -t exercism/java-test-runner-crac-checkpoint -f Dockerfile.createCheckpoint .
 
-slug="merged"
-solution_dir=$(realpath "tests/merged/")
-output_dir=$(realpath "tests/merged/")
+bin/create-checkpoint.sh
 
-docker run --cap-add CHECKPOINT_RESTORE \
-           --cap-add SYS_PTRACE \
-           --name java-test-runner-crac \
-           --network none \
-           --mount type=bind,src="${solution_dir}",dst=/solution \
-           --mount type=bind,src="${output_dir}",dst=/output \
-           --mount type=tmpfs,dst=/tmp \
-           exercism/java-test-runner-crac-checkpoint "${slug}" /solution /output
-
-docker commit --change='ENTRYPOINT ["sh", "/opt/test-runner/bin/run-restore-from-checkpoint.sh"]' java-test-runner-crac exercism/java-test-runner-crac-restore
-
-docker rm -f java-test-runner-crac
-rm -rf tests/merged/
+docker build -t exercism/java-test-runner -f Dockerfile .
