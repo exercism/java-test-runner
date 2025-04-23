@@ -20,6 +20,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Run Tests in Docker
         run: bin/run-tests-in-docker.sh
