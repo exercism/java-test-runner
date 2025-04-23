@@ -1,7 +1,7 @@
 #! /bin/bash -e
 
 # Synopsis:
-# Test the test runner Docker image by running it against a predefined set of 
+# Test the test runner Docker image by running it against a predefined set of
 # solutions with an expected output.
 # The test runner Docker image is built automatically.
 
@@ -24,7 +24,7 @@ for test_dir in tests/*; do
     results_file_path="${test_dir_path}/results.json"
     expected_results_file_path="${test_dir_path}/expected_results.json"
 
-    bin/run-in-docker-without-build.sh "${test_dir_name}" "${test_dir_path}" "${test_dir_path}"
+    bin/run-in-docker.sh "${test_dir_name}" "${test_dir_path}" "${test_dir_path}" --no-build
 
     # Normalize the results file
     sed -i "s~${test_dir_path}~/solution~g" "${results_file_path}"
