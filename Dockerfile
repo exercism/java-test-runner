@@ -1,13 +1,8 @@
-FROM gradle:8.12-jdk21 AS build
-
-WORKDIR /app
-COPY --chown=gradle:gradle . /app
-RUN gradle -i --stacktrace clean build
-
-FROM eclipse-temurin:21
+FROM bellsoft/liberica-runtime-container:jdk-21-crac-musl AS build
 
 WORKDIR /opt/test-runner
-COPY bin/run.sh bin/run.sh
-COPY --from=build /app/build/libs/java-test-runner.jar .
+COPY --link build/libs/java-test-runner.jar /opt/test-runner/java-test-runner.jar
+COPY --link bin/run-restore-from-checkpoint.sh bin/run-restore-from-checkpoint.sh
+COPY --link build/cr /opt/test-runner/crac-checkpoint
 
-ENTRYPOINT ["sh", "/opt/test-runner/bin/run.sh"]
+ENTRYPOINT ["sh", "/opt/test-runner/bin/run-restore-from-checkpoint.sh"]

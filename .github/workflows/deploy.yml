@@ -9,14 +9,44 @@ on:
 permissions:
   contents: write
 
+env:
+  IMAGE_TAG: exercism/java-test-runner-crac-checkpoint
+
 jobs:
   build-and-push-image:
     if: github.repository_owner == 'exercism' # Stops this job from running on forks.
-    uses: exercism/github-actions/.github/workflows/docker-build-push-image.yml@main
-    secrets:
-      AWS_ACCOUNT_ID: ${{secrets.AWS_ACCOUNT_ID}}
-      AWS_REGION: ${{secrets.AWS_REGION}}
-      AWS_ECR_ACCESS_KEY_ID: ${{secrets.AWS_ECR_ACCESS_KEY_ID}}
-      AWS_ECR_SECRET_ACCESS_KEY: ${{secrets.AWS_ECR_SECRET_ACCESS_KEY}}
-      DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-      DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+    steps:
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Build with Gradle
+        run: ./gradlew build
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and export to Docker
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4
+        with:
+          context: .
+          file: ./Dockerfile.createCheckpoint
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          #         build-args: ${{ secrets.DOCKER_BUILD_ARGS }}
+          provenance: false
+          platforms: linux/amd64
+          tags: ${{ env.IMAGE_TAG }}
+      - name: Create CRaC checkpoint
+        run: bin/create-checkpoint.sh ${{ env.IMAGE_TAG }}
+      - name: Build and push Docker image
+        uses: exercism/github-actions/.github/workflows/docker-build-push-image.yml@main
+        secrets:
+          AWS_ACCOUNT_ID: ${{secrets.AWS_ACCOUNT_ID}}
+          AWS_REGION: ${{secrets.AWS_REGION}}
+          AWS_ECR_ACCESS_KEY_ID: ${{secrets.AWS_ECR_ACCESS_KEY_ID}}
+          AWS_ECR_SECRET_ACCESS_KEY: ${{secrets.AWS_ECR_SECRET_ACCESS_KEY}}
+          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}

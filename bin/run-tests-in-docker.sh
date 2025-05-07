@@ -1,7 +1,7 @@
 #! /bin/bash -e
 
 # Synopsis:
-# Test the test runner Docker image by running it against a predefined set of 
+# Test the test runner Docker image by running it against a predefined set of
 # solutions with an expected output.
 # The test runner Docker image is built automatically.
 
@@ -13,16 +13,28 @@
 # ./bin/run-tests-in-docker.sh
 
 # Build the Docker image
-docker build --rm -t exercism/java-test-runner .
+bin/build-crac-checkpoint-image.sh
 
-# Run the Docker image using the settings mimicking the production environment
-docker run \
-    --rm \
-    --network none \
-    --read-only \
-    --mount type=bind,src="${PWD}/tests",dst=/opt/test-runner/tests \
-    --mount type=tmpfs,dst=/tmp \
-    --volume "${PWD}/bin/run-tests.sh:/opt/test-runner/bin/run-tests.sh" \
-    --workdir /opt/test-runner \
-    --entrypoint /opt/test-runner/bin/run-tests.sh \
-    exercism/java-test-runner
+exit_code=0
+
+# Iterate over all test directories
+for test_dir in tests/*; do
+    test_dir_name=$(basename "${test_dir}")
+    test_dir_path=$(realpath "${test_dir}")
+    results_file_path="${test_dir_path}/results.json"
+    expected_results_file_path="${test_dir_path}/expected_results.json"
+
+    bin/run-in-docker.sh "${test_dir_name}" "${test_dir_path}" "${test_dir_path}" --no-build
+
+    # Normalize the results file
+    sed -i "s~${test_dir_path}~/solution~g" "${results_file_path}"
+
+    echo "${test_dir_name}: comparing results.json to expected_results.json"
+    diff "${results_file_path}" "${expected_results_file_path}"
+
+    if [ $? -ne 0 ]; then
+        exit_code=1
+    fi
+done
+
+exit ${exit_code}
