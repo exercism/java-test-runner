@@ -1,0 +1,7 @@
+FROM bellsoft/liberica-runtime-container:jdk-21-crac-musl
+
+WORKDIR /opt/test-runner
+COPY --link build/libs/java-test-runner.jar /opt/test-runner/java-test-runner.jar
+COPY --link bin/run-to-create-crac-checkpoint.sh bin/run-to-create-crac-checkpoint.sh
+
+ENTRYPOINT ["sh", "/opt/test-runner/bin/run-to-create-crac-checkpoint.sh"]

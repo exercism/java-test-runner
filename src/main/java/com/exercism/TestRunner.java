@@ -17,6 +17,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.crac.CheckpointException;
+import org.crac.Core;
+import org.crac.RestoreException;
+
 public final class TestRunner {
 
     private final JUnitTestParser testParser;
@@ -33,14 +37,16 @@ public final class TestRunner {
         this.inputDirectory = inputDirectory;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CheckpointException, RestoreException {
         if (args.length < 3) {
             throw new IllegalArgumentException("Not enough arguments, need <slug> <inputDirectory> <outputDirectory>");
         }
         new TestRunner(args[0], args[1], args[2]).run();
+
+        Core.checkpointRestore();
     }
 
-    private void run() throws IOException {
+    void run() throws IOException {
         var sourceFiles = resolveSourceFiles();
         var testFiles = resolveTestFiles();
 
