@@ -1,10 +1,9 @@
 package com.exercism.report;
 
-import javax.annotation.Nullable;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Optional;
 
