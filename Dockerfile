@@ -4,7 +4,7 @@ WORKDIR /app
 COPY --chown=gradle:gradle . /app
 RUN gradle -i --stacktrace clean build
 
-FROM eclipse-temurin:25
+FROM eclipse-temurin:21
 
 WORKDIR /opt/test-runner
 COPY bin/run.sh bin/run.sh
