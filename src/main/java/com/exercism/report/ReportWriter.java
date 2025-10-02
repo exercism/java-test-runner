@@ -17,7 +17,7 @@ public class ReportWriter {
 	public void report(Report report) {
 		var mapper = new ObjectMapper();
 		mapper.registerModule(new Jdk8Module());
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_ABSENT);
+		mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_ABSENT);
 		var filePath = this.outputDirectory.resolve("results.json");
 
 		try {
