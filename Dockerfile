@@ -1,10 +1,10 @@
-FROM gradle:8.12-jdk21 AS build
+FROM docker.io/library/gradle:9.1.0-jdk25 AS build
 
 WORKDIR /app
 COPY --chown=gradle:gradle . /app
 RUN gradle -i --stacktrace clean build
 
-FROM eclipse-temurin:21
+FROM docker.io/library/eclipse-temurin:25_36-jdk
 
 WORKDIR /opt/test-runner
 COPY bin/run.sh bin/run.sh
