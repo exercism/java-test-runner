@@ -1,6 +1,6 @@
 {
   "status" : "error",
-  "message" : "./src/main/java/Leap.java:1: error: class, interface, enum, or record expected\nclassYY Leapy {@\n^./src/main/java/Leap.java:1: error: reached end of file while parsing\nclassYY Leapy {@\n                ^./src/main/java/Leap.java:2: error: reached end of file while parsing\n",
+  "message" : "./src/main/java/Leap.java:1: error: class, interface, annotation type, enum, record, method or field expected\nclassYY Leapy {@\n^./src/main/java/Leap.java:1: error: reached end of file while parsing\nclassYY Leapy {@\n                ^./src/main/java/Leap.java:2: error: reached end of file while parsing\n",
   "tests" : [ ],
   "version" : 3
 }
