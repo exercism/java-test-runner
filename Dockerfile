@@ -1,4 +1,4 @@
-FROM docker.io/library/gradle:9.1.0-jdk25 AS build
+FROM docker.io/library/gradle:9.2.0-jdk25 AS build
 
 WORKDIR /app
 COPY --chown=gradle:gradle . /app
