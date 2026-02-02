@@ -41,11 +41,11 @@ dependencies {
     runtimeOnly 'io.reactivex.rxjava2:rxjava:2.2.12' // used in practice:hangman
 }
 
-shadowJar {
+def testRunnerJar = shadowJar {
     mergeServiceFiles()
     archiveFileName.set("java-test-runner.jar")
 }
 
-artifacts {
-    archives shadowJar
+tasks.named("assemble") {
+    dependsOn(testRunnerJar)
 }
