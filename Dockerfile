@@ -4,7 +4,7 @@ WORKDIR /app
 COPY --chown=gradle:gradle . /app
 RUN gradle -i --stacktrace clean build
 
-FROM docker.io/library/eclipse-temurin:25.0.1_8-jdk
+FROM docker.io/library/eclipse-temurin:25.0.2_10-jdk
 
 WORKDIR /opt/test-runner
 COPY bin/run.sh bin/run.sh
