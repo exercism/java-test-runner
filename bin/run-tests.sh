@@ -23,7 +23,10 @@ for test_dir in tests/*; do
     bin/run.sh "${test_dir_name}" "${test_dir_path}" "${test_dir_path}"
 
     # Normalize the results file
-    sed -i "s~${test_dir_path}~/solution~g" "${results_file_path}"
+    sed -i \
+        -e "s~${test_dir_path}~/solution~g" \
+        -e "s/.java:[0-9]\+)/.java:LINE)/g" \
+        "${results_file_path}"
 
     echo "${test_dir_name}: comparing results.json to expected_results.json"
     diff "${results_file_path}" "${expected_results_file_path}"
