@@ -38,4 +38,8 @@ cp -R $input_folder/* .
 
 find . -mindepth 1 -type f | grep 'Test.java' | xargs -I file sed -i "s/@Ignore(.*)//g;s/@Ignore//g;s/@Disabled(.*)//g;s/@Disabled//g;" file
 
-java -jar /opt/test-runner/java-test-runner.jar $problem_slug . $output_folder
+# -XX:AOTCache loads the JVM's ahead-of-time cache, created by bin/create-aot-cache.sh
+# when the image is built. The classes of javac, JUnit and AssertJ come from the cache
+# already loaded and linked, which halves the time of a typical run.
+java -XX:AOTCache=/opt/test-runner/java-test-runner.aot \
+     -jar /opt/test-runner/java-test-runner.jar $problem_slug . $output_folder
