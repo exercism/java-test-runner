@@ -9,5 +9,8 @@ FROM eclipse-temurin:27_35-jdk@sha256:473d02d477a8152a05dc42fde10b965754f1863d45
 WORKDIR /opt/test-runner
 COPY bin/run.sh bin/run.sh
 COPY --from=build /app/build/libs/java-test-runner.jar .
+COPY bin/create-aot-cache.sh bin/create-aot-cache.sh
+COPY aot-training aot-training
+RUN sh bin/create-aot-cache.sh
 
 ENTRYPOINT ["sh", "/opt/test-runner/bin/run.sh"]
