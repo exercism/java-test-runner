@@ -44,15 +44,15 @@ public final class TestRunner {
         var sourceFiles = resolveSourceFiles();
         var testFiles = resolveTestFiles();
 
-        for (File testFile : testFiles) {
-            testParser.parse(testFile);
-        }
-
         var filesToCompile = Stream.concat(sourceFiles.stream(), testFiles.stream()).toList();
 
         Report report;
-        try (var compiler = new ExerciseCompiler(slug)) {
-            compiler.compile(filesToCompile);
+        try (var compiler = new ExerciseCompiler(slug, filesToCompile)) {
+            for (File testFile : testFiles) {
+                testParser.parse(testFile);
+            }
+
+            compiler.compile();
             testRunner.test(compiler.getClassLoader(), compiler.getClasspathRoots());
             report = ReportGenerator.generate(testRunner.getTestDetails(), testParser.buildTestCodeMap());
         } catch (ExerciseCompilationException e) {
